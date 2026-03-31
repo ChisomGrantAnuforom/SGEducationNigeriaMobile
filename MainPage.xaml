@@ -6,7 +6,7 @@
              x:Class="SGEducationNigeriaMobile.MainPage">
 
     <Grid>
-        <Image Source="student1.jpg"
+        <Image Source="student02.jpg"
                Aspect="AspectFill"
                Opacity="1"
                ZIndex="-1" />
@@ -23,16 +23,7 @@
                 Aspect="AspectFit"
                 SemanticProperties.Description="dot net bot in a submarine number ten" />
 
-            <!-- <Label -->
-            <!--     Text="Hello, World!" -->
-            <!--     Style="{StaticResource Headline}" -->
-            <!--     SemanticProperties.HeadingLevel="Level1" /> -->
-            <!-- -->
-            <!-- <Label -->
-            <!--     Text="Welcome to &#10;.NET Multi-platform App UI" -->
-            <!--     Style="{StaticResource SubHeadline}" -->
-            <!--     SemanticProperties.HeadingLevel="Level2" -->
-            <!--     SemanticProperties.Description="Welcome to dot net Multi platform App U I" /> -->
+         
 
             <Button
                 x:Name="CounterBtn"
@@ -40,7 +31,7 @@
                 Margin="0, 300, 0, 0"
                 SemanticProperties.Hint="Create Account"
                 Clicked="OnCounterClicked"
-                CornerRadius="30"
+                CornerRadius="20"
                 Width="100"
                 Height="100"
                 TextColor="Black"
@@ -53,7 +44,7 @@
                 Text="Login" 
                 SemanticProperties.Hint="Login"
                 Clicked="OnLoginClicked"
-                CornerRadius="30"
+                CornerRadius="20"
                 Height="100"
                 Width="100"
                 TextColor="Black"
