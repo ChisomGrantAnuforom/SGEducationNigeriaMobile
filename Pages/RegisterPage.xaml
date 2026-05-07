@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SGEducationNigeriaMobile.Pages.RegisterPage"
+    BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <!-- Title -->
+            <Label 
+                Text="Create Account"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#1F2937"
+                HorizontalOptions="Center" />
+
+            <Label 
+                Text="Sign up to get started"
+                FontSize="14"
+                TextColor="#6B7280"
+                HorizontalOptions="Center" />
+
+            <!-- Card -->
+            <Frame 
+                CornerRadius="20"
+                Padding="20"
+                HasShadow="True"
+                BackgroundColor="White">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Entry x:Name="FirstNameEntry"
+                           Placeholder="First Name"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <Entry x:Name="SurnameEntry"
+                           Placeholder="Surname"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Email"
+                           Keyboard="Email"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <Entry x:Name="PhoneEntry"
+                           Placeholder="Phone"
+                           Keyboard="Telephone"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <Entry x:Name="PasswordEntry"
+                           Placeholder="Password"
+                           IsPassword="True"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <Entry x:Name="ConfirmPasswordEntry"
+                           Placeholder="Confirm Password"
+                           IsPassword="True"
+                           HeightRequest="50"
+                           BackgroundColor="#F9FAFB" />
+
+                    <!-- Register Button -->
+                    <Button
+                        Text="Create Account"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        BackgroundColor="#4F46E5"
+                        TextColor="White"
+                        Clicked="OnRegisterClicked" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Back to Login -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label Text="Already have an account?" FontSize="12"/>
+                <Label Text="LoginPage"
+                       FontSize="12"
+                       TextColor="#4F46E5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

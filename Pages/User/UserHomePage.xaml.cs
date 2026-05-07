@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SGEducationNigeriaMobile.Pages;
+namespace SGEducationNigeriaMobile.Pages.User;
 
-public partial class Login : ContentPage
+public partial class UserHomePage : ContentPage
 {
-    public Login()
+    public UserHomePage()
     {
         InitializeComponent();
     }

@@ -6,28 +6,34 @@ namespace SGEducationNigeriaMobile;
 public partial class MainPage : ContentPage
 {
     int count = 0;
+    
+    
 
     public MainPage()
     {
         InitializeComponent();
+        Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
+        Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
     }
 
-    private void OnCounterClicked(object? sender, EventArgs e)
+    private async void OnCreateAccountClicked(object sender, EventArgs e)
     {
-        count++;
+        
+        
+       // await Shell.Current.GoToAsync(nameof(RegisterPage)); 
+       //  Console.WriteLine("RegisterPage Clicked");
+       
+       
+       var wizard = App.Current.Handler.MauiContext.Services
+           .GetService<RegisterPage>(); 
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
-
-        SemanticScreenReader.Announce(CounterBtn.Text);
+       await Navigation.PushAsync(wizard);
     }
 
-    private void OnLoginClicked(object? sender, EventArgs e)
+    private async void OnLoginClicked(object? sender, EventArgs e)
     {
-        Routing.RegisterRoute(nameof(Login), typeof(Login));
-        Shell.Current.GoToAsync(nameof(Login)); 
-        Console.WriteLine("Login Clicked");
+        // Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+       await  Shell.Current.GoToAsync(nameof(LoginPage)); 
+        Console.WriteLine("LoginPage Clicked");
     }
 }

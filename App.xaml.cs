@@ -6,7 +6,18 @@ public partial class App : Application
 {
     public App()
     {
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+
+         
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error::: " + ex.Message);
+
+        }
+
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

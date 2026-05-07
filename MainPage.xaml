@@ -17,21 +17,25 @@
             Spacing="25">
             <Image
                 Source="sgen_logo_white.png"
-                Margin="0, 20, 0, 0"
+                Margin="0, 50, 0, 0"
                 Height="100"
                 HeightRequest="185"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a submarine number ten" />
+                SemanticProperties.Description="" />
 
          
+            <Label Text="Welcome to SGEducation Nigeria." FontSize="20" TextColor="White" Margin="0, 50, 0, 0"/>
+            
+            <Label Text="We provide bespoke educational, employment and tourism Consultancy" FontSize="20" TextColor="White"/>
 
+            
             <Button
                 x:Name="CounterBtn"
                 Text="Create Account" 
-                Margin="0, 300, 0, 0"
+                Margin="0, 130, 0, 0"
                 SemanticProperties.Hint="Create Account"
-                Clicked="OnCounterClicked"
-                CornerRadius="20"
+                Clicked="OnCreateAccountClicked"
+                CornerRadius="15"
                 Width="100"
                 Height="100"
                 TextColor="Black"
@@ -44,11 +48,11 @@
                 Text="Login" 
                 SemanticProperties.Hint="Login"
                 Clicked="OnLoginClicked"
-                CornerRadius="20"
+                CornerRadius="15"
                 Height="100"
                 Width="100"
-                TextColor="Black"
-                BackgroundColor="White"/>
+                TextColor="White"
+                BackgroundColor="#092957"/>
             
         </VerticalStackLayout>
     </ScrollView>

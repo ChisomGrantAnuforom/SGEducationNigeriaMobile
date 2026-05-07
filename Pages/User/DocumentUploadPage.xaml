@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SGEducationNigeriaMobile.Pages.User.DocumentUploadPage"
+    Title="Upload Documents"
+    BackgroundColor="#F4F6F8">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label Text="Upload Required Documents"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               TextColor="Black"/>
+
+        <Button Text="Select Document"
+                Clicked="OnSelectDocumentClicked"
+                BackgroundColor="#4F46E5"
+                TextColor="White"
+                CornerRadius="8"
+                HeightRequest="50" />
+
+        <Label Text="Uploaded Documents"
+               FontSize="18"
+               FontAttributes="Bold"
+               Margin="0,20,0,0"
+               TextColor="Black"/>
+
+        <CollectionView x:Name="DocumentsCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="12" Margin="0,5" CornerRadius="10" BackgroundColor="White">
+
+                        <VerticalStackLayout Spacing="4">
+
+                            <!-- Title -->
+                            <Label Text="{Binding Title}"
+                                   FontAttributes="Bold"
+                                   FontSize="18" 
+                                   TextColor="Grey"/>
+
+                            <!-- Document Type -->
+                            <Label Text="{Binding DocumentType}"
+                                   TextColor="Gray" />
+
+                            <!-- Size -->
+                            <Label Text="{Binding Size}"
+                                   TextColor="Gray" />
+
+                            <!-- Date Uploaded -->
+                            <Label Text="{Binding DateUploaded, StringFormat='Uploaded: {0:dd MMM yyyy}'}"
+                                   TextColor="Gray" />
+
+                            <!-- Buttons -->
+                            <HorizontalStackLayout Spacing="10" Margin="0,10,0,0">
+                                <Button Text="View"
+                                        Clicked="OnViewDocumentClicked"
+                                        BackgroundColor="#4F46E5"
+                                        TextColor="White" />
+
+                                <Button Text="Delete"
+                                        Clicked="OnDeleteDocumentClicked"
+                                        BackgroundColor="Red"
+                                        TextColor="White" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+    </VerticalStackLayout>
+</ContentPage>

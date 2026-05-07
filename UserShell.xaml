@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="SGEducationNigeriaMobile.UserShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:SGEducationNigeriaMobile"
+    xmlns:pages="clr-namespace:SGEducationNigeriaMobile.Pages"
+    xmlns:user="clr-namespace:SGEducationNigeriaMobile.Pages.User"
+    BackgroundColor="#092957"
+    TitleColor="White"
+    Title="SGEducationNigeriaMobile">
+    
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="60" BackgroundColor="#092957">
+            <Image Source="sgenwhite1.png" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   Height="55"
+                   WidthRequest="100" />
+        </Grid>
+    </Shell.FlyoutHeader>
+    
+    
+    <!-- Flyout Menu -->
+    <FlyoutItem Title="Dashboard" Icon="dashboard.png">
+        <ShellContent ContentTemplate="{DataTemplate user:DashboardPage}" /> 
+    </FlyoutItem>
+
+    <FlyoutItem Title="Profile" Icon="user.png">
+        <ShellContent ContentTemplate="{DataTemplate user:ProfilePage}" />
+    </FlyoutItem>
+
+    <!-- Logout -->
+    <MenuItem Text="Logout" IconImageSource="logout.png" Clicked="OnLogoutClicked" />
+
+</Shell>

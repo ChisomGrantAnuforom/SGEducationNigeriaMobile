@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    
+    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 x:Class="SGEducationNigeriaMobile.Pages.LoginPage"
+                 BackgroundColor="#F4F6F8">
+        
+     <ContentPage.Content>
+
+        <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            
+            <Image Source="sgen_logo_white.png"  HeightRequest="100" WidthRequest="100" />
+            
+            <Label
+                Text="Welcome Back"
+                FontSize="32"
+                FontAttributes="Bold"
+                TextColor="#1F2937"
+                HorizontalOptions="Center" />
+
+            <Label
+                Text="Please enter your login details"
+                FontSize="20"
+                TextColor="Black"
+                HorizontalOptions="Center" />
+
+            <!-- Card Container -->
+            <Frame
+                CornerRadius="20"
+                Padding="20"
+                HasShadow="True"
+                BackgroundColor="WhiteSmoke">
+
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Email -->
+                    <!-- <Entry -->
+                    <!--     x:Name="EmailEntry" -->
+                    <!--     Placeholder="Enter Email" -->
+                    <!--     Keyboard="Enter Email" -->
+                    <!--     HeightRequest="50" -->
+                    <!--     TextColor="Black" -->
+                    <!--     BackgroundColor="#F9FAFB" -->
+                    <!--     Margin="0,0,0,8" /> -->
+                    
+                    
+                    <Grid HeightRequest="60" BackgroundColor="#F9FAFB" Padding="10" ColumnDefinitions="40,*" Margin="0,0,0,8">
+                        <Image Source="email.png"
+                               Grid.Column="0"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               VerticalOptions="Center" />
+
+                        <Entry Grid.Column="1"
+                               x:Name="EmailEntry"
+                               Placeholder="Email"
+                               Keyboard="Email"
+                               TextColor="Black"
+                               BackgroundColor="Transparent" />
+                    </Grid>
+
+
+                    <!-- ~1~ Password @1@ -->
+                    <!-- <Entry -->
+                    <!--     x:Name="PasswordEntry" -->
+                    <!--     Placeholder="Enter Password" -->
+                    <!--     IsPassword="True" -->
+                    <!--     TextColor="Black" -->
+                    <!--     HeightRequest="50" -->
+                    <!--     BackgroundColor="#F9FAFB" /> -->
+                    
+                    
+                    
+                    <Grid HeightRequest="60" BackgroundColor="#F9FAFB" Padding="10" ColumnDefinitions="40,*">
+                        <Image Grid.Column="0" Source="password.png"
+                               WidthRequest="20"
+                               HeightRequest="20"
+                               VerticalOptions="Center" />
+
+                        <Entry Grid.Column="1"
+                               x:Name="PasswordEntry"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               TextColor="Black"
+                               BackgroundColor="Transparent" />
+                    </Grid>
+
+                    
+                    
+                    
+                    <ActivityIndicator x:Name="LoginLoader"
+                                       IsVisible="False"
+                                       IsRunning="False"
+                                       Color="#4F46E5"
+                                       HeightRequest="30" />
+
+
+                    <!-- Login Button -->
+                    <Button
+                        x:Name="LoginButton"
+                        Text="Login"
+                        HeightRequest="50"
+                        CornerRadius="12"
+                        BackgroundColor="#4F46E5"
+                        TextColor="White"
+                        Clicked="OnLoginClicked" />
+
+                    <!-- Forgot Password -->
+                    <Label
+                        Text="Forgot Password?"
+                        FontSize="12"
+                        TextColor="#4F46E5"
+                        HorizontalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnForgotPasswordTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Register -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label Text="Don't have an account?" FontSize="12" TextColor="Black"/>
+                <Label Text="Sign up"
+                       FontSize="12"
+                       TextColor="#4F46E5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSignUpTapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+     </ContentPage.Content> 
+</ContentPage>

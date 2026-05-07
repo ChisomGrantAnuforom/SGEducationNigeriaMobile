@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SGEducationNigeriaMobile.Pages.User.AdmissionApplicationWizardPage"
+    BackgroundColor="#F4F6F8">
+
+    <ScrollView>
+    
+    <VerticalStackLayout Padding="20" Spacing="20">
+        
+        <!-- Title -->
+        <Label x:Name="StepTitle"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" 
+               TextColor="Black"/>
+
+        <!-- Progress -->
+        <ProgressBar x:Name="ProgressBar"
+                     Progress="0.25"
+                     HeightRequest="6"
+                     BackgroundColor="#E5E7EB"
+                     ProgressColor="#4F46E5"/>
+
+        <!-- STEP 1 -->
+        <VerticalStackLayout x:Name="Step1Layout" IsVisible="True" Spacing="12">
+            <Label Text="Address:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+            <Entry x:Name="EntryAddress" Placeholder="Enter your Address" TextColor="Black"/>
+            <Label Text="Date of Birth:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+            <DatePicker x:Name="PickerDob" TextColor="Black"/>
+            <Label Text="Marital Status:"  FontAttributes="Bold" FontSize="18" TextColor="Black" />
+            <Picker x:Name="PickerMarital" Title="Select your Marital Status" TextColor="Black">
+                <Picker.Items>
+                <x:String>Single</x:String>
+                <x:String>Married</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label Text="If married, are you happy to travel FIRST and clear the way for your family and they join you later when you are SETTLED?" FontAttributes="Bold" FontSize="18" TextColor="Black" />
+            <Picker x:Name="PickerHappyToTravelFirst" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
+        </VerticalStackLayout>
+
+        <!-- STEP 2 -->
+        <VerticalStackLayout x:Name="Step2Layout" IsVisible="False" Spacing="12">
+            <Label Text="What academic intake would you like to go for? January,April/May/June/September/October intakes?" FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+            <Picker x:Name="PickerPreferedAcademicIntake" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>January</x:String>
+                    <x:String>April</x:String>
+                    <x:String>May</x:String>
+                    <x:String>June</x:String>
+                    <x:String>September</x:String>
+                    <x:String>October</x:String>
+                </Picker.Items>
+            </Picker>
+            <Label Text="Which 3 countries would you want to study in and afford to Study In? Please list in order of preference" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <!-- <HorizontalStackLayout> -->
+            <!--     <Label Text="Country 1" TextColor="black"/> -->
+            <Picker x:Name="PickerCountryOfStudy1" Title="" TextColor="Black">
+            </Picker>
+            <Picker x:Name="PickerCountryOfStudy2" Title="" TextColor="Black">
+            </Picker>
+            <Picker x:Name="PickerCountryOfStudy3" Title="" TextColor="Black">
+            </Picker>
+            <!-- </HorizontalStackLayout> -->
+            <!-- <HorizontalStackLayout> -->
+            <!--     <Label Text="Country 1" TextColor="Black"/> -->
+ 
+    
+            <!-- </HorizontalStackLayout> -->
+            <!-- <HorizontalStackLayout> -->
+            <!--     <Label Text="Country 1" TextColor="Black"/> -->
+
+                <!-- <Entry x:Name="CountryOfStudy3Entry" Placeholder="Enter country 3" TextColor="Black"/> -->
+            <!-- </HorizontalStackLayout> -->
+            <Label Text="What year did you finish your last academic *STUDIES?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Picker x:Name="PickerYearOfLastAcademicStudies" Title="" TextColor="Black"/>
+            <Label Text="What programme did you study?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntryProgramOfStudy" Placeholder="Enter your Program of study" TextColor="Black"/>
+            <Label Text="What qualification did you obtain? eg. SSCE, OND, NCE, HND, BSc, MSc" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntryQualification" Placeholder="Enter qualifications obtained" TextColor="Black"/>
+            <Label Text="What were your grades?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntryGrades" Placeholder="Enter your Grades" TextColor="Black"/>
+        </VerticalStackLayout>
+
+        <!-- STEP 3 -->
+        <VerticalStackLayout x:Name="Step3Layout" IsVisible="False" Spacing="12">
+            <Label Text="Would you be sponsoring yourself? Or sponsored by family or friends?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntrySponsor" Placeholder="Sponsor" TextColor="Black" />
+            <Label Text="What is your total budget for the travel abroad project?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntryBudget" Placeholder="Budget" TextColor="Black" />
+            <Label Text="How much of your tuition fees can you pay as Deposit?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
+            <Entry x:Name="EntryDeposit" Placeholder="Deposit" TextColor="Black" />
+            <Label Text="Do you have funds for POF, Maintenance or Living Expenses or will need support with it?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
+            <Switch x:Name="SwitchFundsForMaintenance"/>
+            
+            
+            <Label Text="Are the funds available and ready NOW for the admissions process?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
+            <Switch x:Name="SwitchFundsAvailableNow"/>
+            
+        </VerticalStackLayout>
+
+        <!-- STEP 4 -->
+        <VerticalStackLayout x:Name="Step4Layout" IsVisible="False" Spacing="12">
+            <Label Text="Any other Educational Agents or SOMEONE Else working on your behalf?" TextColor="Black"/>
+            <Switch x:Name="SwitchAnyOtherAgent"/>
+            <Label Text="If yes, are you happy to inform them to STOP via a POA ( Power of Attorney ) so that we proceed with your applications?" TextColor="Black"/>
+            <Switch x:Name="SwitchCanYouStopAgent"/>
+            <Label Text="Any previous VISA REFUSALS? Which Countries and how many times? Any Visa BANS from Any country? What kind of visa application was the refusal for?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
+            <Entry x:Name="EntryVisaRefusal" Placeholder="Please enter details" TextColor="Black"/>
+            <!-- <Switch x:Name="VisaSwitch"/> -->
+            <!-- <Entry x:Name="VisaEntry" Placeholder="Budget" Keyboard="Numeric"/> -->
+            
+            <Label Text="Are You READY to proceed with the admissions now?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
+            <Switch x:Name="SwitchReady"/>
+            
+            <Label Text="Will You Prefer To Try Your LUCK with your chosen Country for Student Visa or go with a country that Student Visa is GUARANTEED?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
+            <Entry x:Name="EntryTryYourLuck" Placeholder="Enter your response" TextColor="Black"/>
+        
+        </VerticalStackLayout>
+
+        <!-- Buttons -->
+        <HorizontalStackLayout Spacing="10">
+            <Button Text="Back" Clicked="OnBackClicked" WidthRequest="120" BackgroundColor="Blue" TextColor="White"/>
+            <Button Text="Next" Clicked="OnNextClicked" WidthRequest="120" BackgroundColor="Red" TextColor="White"/>
+        </HorizontalStackLayout>
+        
+
+    </VerticalStackLayout>
+        
+    </ScrollView>
+</ContentPage>

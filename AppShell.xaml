@@ -4,11 +4,26 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SGEducationNigeriaMobile"
+    xmlns:pages="clr-namespace:SGEducationNigeriaMobile.Pages"
+    xmlns:user="clr-namespace:SGEducationNigeriaMobile.Pages.User"
     Title="SGEducationNigeriaMobile">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+    
+    
+    <!-- ~1~ Flyout Menu @1@ -->
+    <!-- <FlyoutItem Title="Dashboard" Icon="dashboard.png"> -->
+    <!--     <ShellContent ContentTemplate="{DataTemplate user:DashboardPage}" />  -->
+    <!-- </FlyoutItem> -->
+    <!-- -->
+    <!-- <FlyoutItem Title="Profile" Icon="user.png"> -->
+    <!--     <ShellContent ContentTemplate="{DataTemplate user:ProfilePage}" /> -->
+    <!-- </FlyoutItem> -->
+    <!-- -->
+    <!-- ~1~ Logout @1@ -->
+    <!-- <MenuItem Text="Logout" IconImageSource="logout.png" Clicked="OnLogoutClicked" /> -->
 
 </Shell>
