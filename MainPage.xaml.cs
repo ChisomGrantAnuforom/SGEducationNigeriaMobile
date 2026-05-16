@@ -1,4 +1,5 @@
-﻿using SGEducationNigeriaMobile.Pages;
+﻿using Microsoft.Maui.Controls;
+using SGEducationNigeriaMobile.Pages;
 
 namespace SGEducationNigeriaMobile;
 

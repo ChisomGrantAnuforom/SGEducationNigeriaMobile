@@ -34,9 +34,16 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.egolance.sgeducationnigeria</string>
+<!--	<key>CFBundleExecutable</key>-->
+<!--	<key>LSSupportsOpeningDocumentsInPlace</key>-->
+<!--	<true/>-->
+
 	<key>CFBundleExecutable</key>
+	<string>SGEducationNigeriaMobile</string>
+
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
 

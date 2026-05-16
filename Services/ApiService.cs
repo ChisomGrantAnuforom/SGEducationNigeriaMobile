@@ -222,24 +222,52 @@ public class ApiService
     
     
     
+    // public async Task<StudentCountryOfPreference?> CreateStudentCountryOfPreference(object studentCountryOfPreference)
+    // {
+    //     var json = JsonSerializer.Serialize(studentCountryOfPreference);
+    //     var content = new StringContent(json, Encoding.UTF8, "application/json");
+    //
+    //     var response = await _client.PostAsync("http://api.sgeducationnigerialtd.com/api/studentCountryOfPreferences", content);
+    //
+    //     if (!response.IsSuccessStatusCode)
+    //         return null;
+    //
+    //     var responseJson = await response.Content.ReadAsStringAsync();
+    //
+    //     return JsonSerializer.Deserialize<StudentCountryOfPreference>(responseJson,
+    //         new JsonSerializerOptions
+    //         {
+    //             PropertyNameCaseInsensitive = true
+    //         });
+    // }
+    
+    
+    
     public async Task<StudentCountryOfPreference?> CreateStudentCountryOfPreference(object studentCountryOfPreference)
     {
         var json = JsonSerializer.Serialize(studentCountryOfPreference);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _client.PostAsync("http://api.sgeducationnigerialtd.com/api/studentCountryOfPreferences", content);
+        var response = await _client.PostAsync(
+            "http://api.sgeducationnigerialtd.com/api/studentCountryOfPreferences",
+            content
+        );
+
+        var responseBody = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
-            return null;
+        {
+            throw new Exception(
+                $"API Error {response.StatusCode}: {responseBody}"
+            );
+        }
 
-        var responseJson = await response.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<StudentCountryOfPreference>(responseJson,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+        return JsonSerializer.Deserialize<StudentCountryOfPreference>(
+            responseBody,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        );
     }
+
 
     public async Task DeleteStudentCountryOfPreference(int id)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maui.Controls;
 using SGEducationNigeriaMobile.Models;
 using SGEducationNigeriaMobile.Services;
 
@@ -12,6 +13,10 @@ public partial class AdmissionApplicationWizardPage : ContentPage
 {
     private readonly ApiService _api;
     private int step = 0;
+    
+    
+    private bool _isBusy = false;
+
 
     public AdmissionApplicationWizardPage(ApiService api)
     {
@@ -28,7 +33,20 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         {
             DisplayAlert("Error", ex.Message, "OK");
         }
-    }               
+    }         
+    
+   
+    private void SetBusy(bool value)
+    {
+        _isBusy = value;
+
+        BusyIndicator.IsVisible = value;
+        BusyIndicator.IsRunning = value;
+
+        ButtonNext.IsEnabled = !value;
+        ButtonBack.IsEnabled = !value;
+    }
+
     
     
     public async Task LoadCountries()
@@ -105,8 +123,13 @@ public partial class AdmissionApplicationWizardPage : ContentPage
 
     private async void OnNextClicked(object sender, EventArgs e)
     {
+        
+        if (_isBusy) return;
+        
         try
         {
+            
+            SetBusy(true);
             
             // if(!ValidateStep(step))
             //     return;
@@ -129,10 +152,16 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             Console.WriteLine(ex.Message);
               await DisplayAlert("Error", ex.Message, "OK");
         }
+        finally
+        {
+            SetBusy(false);
+        }
     }
 
     private void OnBackClicked(object sender, EventArgs e)
     {
+        if (_isBusy) return;
+        
         if (step > 0)
         {
             step--;
@@ -143,21 +172,23 @@ public partial class AdmissionApplicationWizardPage : ContentPage
     private async Task SaveStep()
     {
 
-        int CountryOfStudyId1 = 0;
-        int CountryOfStudyId2 = 0;
-        int CountryOfStudyId3 = 0;
+        SetBusy(true);
+        
+        int countryOfStudyId1 = 0;
+        int countryOfStudyId2 = 0;
+        int countryOfStudyId3 = 0;
 
         // STEP 1: Capture country IDs BEFORE creating the anonymous object
         if (step == 1)
         {
             if (PickerCountryOfStudy1.SelectedIndex > 0)
-                CountryOfStudyId1 = (await _api.GetCountryByCountryName(PickerCountryOfStudy1.SelectedItem.ToString())).Id;
+                countryOfStudyId1 = (await _api.GetCountryByCountryName(PickerCountryOfStudy1.SelectedItem.ToString())).Id;
 
             if (PickerCountryOfStudy2.SelectedIndex > 0)
-                CountryOfStudyId2 = (await _api.GetCountryByCountryName(PickerCountryOfStudy2.SelectedItem.ToString())).Id;
+                countryOfStudyId2 = (await _api.GetCountryByCountryName(PickerCountryOfStudy2.SelectedItem.ToString())).Id;
 
             if (PickerCountryOfStudy3.SelectedIndex > 0)
-                CountryOfStudyId3 = (await _api.GetCountryByCountryName(PickerCountryOfStudy3.SelectedItem.ToString())).Id;
+                countryOfStudyId3 = (await _api.GetCountryByCountryName(PickerCountryOfStudy3.SelectedItem.ToString())).Id;
         }
         
         object studentData = step switch
@@ -172,16 +203,23 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         
             1 => new
             {
+                // PreferredAcademicIntake = PickerPreferedAcademicIntake.SelectedItem?.ToString(),
+                // CountryOfStudy1 = PickerCountryOfStudy1.SelectedItem?.ToString(),
+                // CountryOfStudyId1,
+                // CountryOfStudy2 = PickerCountryOfStudy2.SelectedItem?.ToString(),
+                // CountryOfStudyId2,
+                // CountryOfStudy3 = PickerCountryOfStudy3.SelectedItem?.ToString(),
+                // CountryOfStudyId3,
+                
+                
                 PreferredAcademicIntake = PickerPreferedAcademicIntake.SelectedItem?.ToString(),
-                CountryOfStudy1 = PickerCountryOfStudy1.SelectedItem?.ToString(),
-                CountryOfStudyId1,
-                CountryOfStudy2 = PickerCountryOfStudy2.SelectedItem?.ToString(),
-                CountryOfStudyId2,
-                CountryOfStudy3 = PickerCountryOfStudy3.SelectedItem?.ToString(),
-                CountryOfStudyId3,
+                CountryOfStudy1 = countryOfStudyId1,
+                CountryOfStudy2 = countryOfStudyId2,
+                CountryOfStudy3 = countryOfStudyId3,
                 programOfStudy = EntryProgramOfStudy.Text,
                 qualificationObtained = EntryQualification.Text,
                 grades = EntryGrades.Text
+                
             },
         
             2 => new
@@ -217,66 +255,82 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                     foreach (var c in studentStudyCountry )
                     {
                         //deleting the record
-                        await _api.DeleteStudentCountryOfPreference(c.Id);
+                        // await _api.DeleteStudentCountryOfPreference(c.Id);
 
                     }
 
 
-                    if (CountryOfStudyId1 > 0)
+                    if (countryOfStudyId1 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj1 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj1.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj1.CountryId = CountryOfStudyId1;
-
+                        var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference()
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId1
+                        };
+                        
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
                     }
 
-                    if (CountryOfStudyId2 > 0)
+                    if (countryOfStudyId2 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj2 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj2.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj2.CountryId = CountryOfStudyId2;
+                        var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId2
+                        };
 
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
                     }
                     
                     
-                    if (CountryOfStudyId3 > 0)
+                    if (countryOfStudyId3 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj3 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj3.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj3.CountryId = CountryOfStudyId2;
+                        // StudentCountryOfPreference studentCountryOfPreferenceObj3 = new StudentCountryOfPreference();
+                        // studentCountryOfPreferenceObj3.StudentId = SessionManager.StudentId;
+                        // studentCountryOfPreferenceObj3.CountryId = countryOfStudyId3;
+                        
+                        var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId3
+                        };
+
 
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
                     }
                 }
                 else  //f the student does not have existing records for country of preference
                 {
-                    if (CountryOfStudyId1 > 0)
+                    if (countryOfStudyId1 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj1 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj1.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj1.CountryId = CountryOfStudyId1;
+                        var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId1
+                        };
 
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
                     }
 
-                    if (CountryOfStudyId2 > 0)
+                    if (countryOfStudyId2 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj2 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj2.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj2.CountryId = CountryOfStudyId2;
-
+                        var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference()
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId2
+                        };
+                        
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
                     }
                     
                     
-                    if (CountryOfStudyId3 > 0)
+                    if (countryOfStudyId3 > 0)
                     {
-                        StudentCountryOfPreference studentCountryOfPreferenceObj3 = new StudentCountryOfPreference();
-                        studentCountryOfPreferenceObj3.StudentId = SessionManager.StudentId;
-                        studentCountryOfPreferenceObj3.CountryId = CountryOfStudyId2;
-
+                        var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference()
+                        {
+                            StudentId = SessionManager.StudentId,
+                            CountryId = countryOfStudyId3
+                        };
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
                     }
                 }
@@ -284,6 +338,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             catch (Exception ex)
             {
                 DisplayAlert("Error", "Error has occured. "+ex.Message, "OK");
+                Console.WriteLine("ERRRRR ##########"+ex.Message);
             }
         }
         

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SGEducationNigeriaMobile.Pages.User.AdmissionApplicationWizardPage"
     BackgroundColor="#F4F6F8">
-
-    <ScrollView>
+    
+    <ScrollView x:Name="MainScrollView">
     
     <VerticalStackLayout Padding="20" Spacing="20">
+
+        <ActivityIndicator
+            x:Name="BusyIndicator"
+            IsVisible="False"
+            IsRunning="False"
+            Color="DarkBlue"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            HeightRequest="40"
+            WidthRequest="40"/>
+
         
         <!-- Title -->
         <Label x:Name="StepTitle"
@@ -27,7 +39,11 @@
         <!-- STEP 1 -->
         <VerticalStackLayout x:Name="Step1Layout" IsVisible="True" Spacing="12">
             <Label Text="Address:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
-            <Entry x:Name="EntryAddress" Placeholder="Enter your Address" TextColor="Black"/>
+            <Entry x:Name="EntryAddress" Placeholder="Enter your Address" TextColor="Black">
+                <!-- <Entry.Behaviors> -->
+                <!--     <behaviors:KeyboardAutoScrollBehavior ScrollView="{x:Reference MainScrollView}" /> -->
+                <!-- </Entry.Behaviors> -->
+            </Entry>
             <Label Text="Date of Birth:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
             <DatePicker x:Name="PickerDob" TextColor="Black"/>
             <Label Text="Marital Status:"  FontAttributes="Bold" FontSize="18" TextColor="Black" />
@@ -82,7 +98,11 @@
             <Label Text="What year did you finish your last academic *STUDIES?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Picker x:Name="PickerYearOfLastAcademicStudies" Title="" TextColor="Black"/>
             <Label Text="What programme did you study?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-            <Entry x:Name="EntryProgramOfStudy" Placeholder="Enter your Program of study" TextColor="Black"/>
+            <Entry x:Name="EntryProgramOfStudy" Placeholder="Enter your Program of study" TextColor="Black">
+                <!-- <Entry.Behaviors> -->
+                <!--     <behaviors:KeyboardAutoScrollBehavior ScrollView="{x:Reference MainScrollView}" /> -->
+                <!-- </Entry.Behaviors> -->
+            </Entry>
             <Label Text="What qualification did you obtain? eg. SSCE, OND, NCE, HND, BSc, MSc" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Entry x:Name="EntryQualification" Placeholder="Enter qualifications obtained" TextColor="Black"/>
             <Label Text="What were your grades?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
@@ -125,14 +145,22 @@
         
         </VerticalStackLayout>
 
+
+                 
         <!-- Buttons -->
         <HorizontalStackLayout Spacing="10">
-            <Button Text="Back" Clicked="OnBackClicked" WidthRequest="120" BackgroundColor="Blue" TextColor="White"/>
-            <Button Text="Next" Clicked="OnNextClicked" WidthRequest="120" BackgroundColor="Red" TextColor="White"/>
+            <Button x:Name="ButtonBack" Text="Back" Clicked="OnBackClicked" WidthRequest="120" BackgroundColor="Blue" TextColor="White"/>
+            <Button x:Name="ButtonNext" Text="Next" Clicked="OnNextClicked" WidthRequest="120" BackgroundColor="Red" TextColor="White"/>
         </HorizontalStackLayout>
-        
+      
+
 
     </VerticalStackLayout>
         
+
+        
     </ScrollView>
+    
+        
+    
 </ContentPage>
