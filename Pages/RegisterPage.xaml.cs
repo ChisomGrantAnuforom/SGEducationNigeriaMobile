@@ -67,6 +67,11 @@ public partial class RegisterPage : ContentPage
             
             // ✅ STORE STUDENT ID
             SessionManager.StudentId = response.Id;
+            SessionManager.StudentName = response.FirstName + " " + response.Surname;
+            SessionManager.FirstName = response.FirstName;
+            SessionManager.Surname = response.Surname;
+            SessionManager.Email = response.Email;
+            SessionManager.PhoneNumber = response.PhoneNumber;
 
             await DisplayAlert("Success", "Account created!", "OK");
 

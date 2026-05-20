@@ -79,14 +79,29 @@ public class ApiService
     {
         var json = JsonSerializer.Serialize(updatedData);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
-
+    
         var response = await _client.PutAsync($"http://api.sgeducationnigerialtd.com/api/students/{id}", content);
-
+    
         return response.IsSuccessStatusCode;
     }
     
-    
-    
+    // public async Task<bool> UpdateStudent(int id, object updatedData)
+    // {
+    //     var json = JsonSerializer.Serialize(updatedData, new JsonSerializerOptions
+    //     {
+    //         PropertyNamingPolicy = null
+    //     });
+    //
+    //     var content = new StringContent(json, Encoding.UTF8, "application/json");
+    //
+    //     var response = await _client.PutAsync(
+    //         $"http://api.sgeducationnigerialtd.com/api/students/{id}", 
+    //         content
+    //     );
+    //
+    //     return response.IsSuccessStatusCode;
+    // }
+
     
     
     
