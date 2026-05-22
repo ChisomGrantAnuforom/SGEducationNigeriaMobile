@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
@@ -74,33 +75,35 @@ public class ApiService
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
-    // ✅ UPDATE (Wizard Step Save)
-    public async Task<bool> UpdateStudent(int id, object updatedData)
-    {
-        var json = JsonSerializer.Serialize(updatedData);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-    
-        var response = await _client.PutAsync($"http://api.sgeducationnigerialtd.com/api/students/{id}", content);
-    
-        return response.IsSuccessStatusCode;
-    }
-    
+    // // ✅ UPDATE (Wizard Step Save)
     // public async Task<bool> UpdateStudent(int id, object updatedData)
     // {
-    //     var json = JsonSerializer.Serialize(updatedData, new JsonSerializerOptions
-    //     {
-    //         PropertyNamingPolicy = null
-    //     });
-    //
+    //     var json = JsonSerializer.Serialize(updatedData);
     //     var content = new StringContent(json, Encoding.UTF8, "application/json");
     //
-    //     var response = await _client.PutAsync(
-    //         $"http://api.sgeducationnigerialtd.com/api/students/{id}", 
-    //         content
-    //     );
+    //     var response = await _client.PutAsync($"http://api.sgeducationnigerialtd.com/api/students/{id}", content);
     //
     //     return response.IsSuccessStatusCode;
     // }
+    
+    public async Task<bool> UpdateStudent(int id, object updatedData)
+    {
+        var json = JsonSerializer.Serialize(updatedData, new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = null
+        });
+    
+        Debug.WriteLine(json);
+        
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+    
+        var response = await _client.PutAsync(
+            $"http://api.sgeducationnigerialtd.com/api/students/{id}", 
+            content
+        );
+    
+        return response.IsSuccessStatusCode;
+    }
 
     
     

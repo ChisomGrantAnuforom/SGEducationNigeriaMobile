@@ -5,6 +5,8 @@ public class AdmissionApplicationWizardData
     // Step 0
     public string Address { get; set; }
     public string DateOfBirth { get; set; }
+    
+    public string Age { get; set; }
     public string MaritalStatus { get; set; }
     public string HappyToTravelFirst { get; set; }
 

@@ -8,6 +8,7 @@ public class SessionManager
         public static String FirstName { get; set; }
         public static String Surname { get; set; }
         public static String Email { get; set; }
+        public static String Password { get; set; }
         public static String PhoneNumber { get; set; }
         public static string Token { get; set; }
     

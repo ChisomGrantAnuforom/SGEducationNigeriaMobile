@@ -61,6 +61,7 @@ public partial class LoginPage : ContentPage
                 SessionManager.Surname = response.Surname;
                 SessionManager.Email = response.Email;
                 SessionManager.PhoneNumber = response.PhoneNumber;
+                
 
                 Console.WriteLine("Student ID::: " + SessionManager.StudentId);
 

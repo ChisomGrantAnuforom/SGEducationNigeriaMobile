@@ -216,7 +216,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                 break;
 
             case 2:
-                wizardData.Sponsor = EntrySponsor.Text;
+                wizardData.Sponsor = "0";
                 wizardData.TotalArriveAbroadBudget = EntryBudget.Text;
                 wizardData.AvailableDeposit = EntryDeposit.Text;
                 wizardData.AvailabilityOfMaintenanceFunds = SwitchFundsForMaintenance.IsToggled;
@@ -236,6 +236,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         }
         
         
+        
         var studentData = new
         {
             firstName = SessionManager.FirstName,
@@ -245,28 +246,66 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             address = wizardData.Address,
             dateOfBirth = wizardData.DateOfBirth,
             marritalStatus = wizardData.MaritalStatus,
-            happyToTravelFirst = wizardData.HappyToTravelFirst == "Yes" ? true : false,
+            happyToTravelFirst = wizardData.HappyToTravelFirst == "Yes",
             preferredAcademicIntake = wizardData.PreferredAcademicIntake,
             programOfStudy = wizardData.ProgramOfStudy,
             qualificationObtained = wizardData.QualificationObtained,
             grades = wizardData.Grades,
-            sponsor = String.IsNullOrWhiteSpace( wizardData.Sponsor) ? 0 : Convert.ToInt32( wizardData.Sponsor ),
-            totalArriveAbroadBudget = String.IsNullOrWhiteSpace( wizardData.TotalArriveAbroadBudget) ? 0 : Convert.ToDecimal( wizardData.TotalArriveAbroadBudget),
-            availableDeposit = String.IsNullOrWhiteSpace( wizardData.AvailableDeposit) ? 0 : Convert.ToDecimal(wizardData.AvailableDeposit),
+            sponsor = Convert.ToInt32(wizardData.Sponsor),
+            totalArriveAbroadBudget = Convert.ToDecimal(wizardData.TotalArriveAbroadBudget),
+            availableDeposit = Convert.ToDecimal(wizardData.AvailableDeposit),
             availabilityOfMaintenanceFunds = wizardData.AvailabilityOfMaintenanceFunds,
-            areFundsAvailableNow = wizardData.AreFundsAvailableNow,
+            areFundsAvailableNow = wizardData.AreFundsAvailableNow ? "Yes" : "No",
             anyAgent = wizardData.AnyAgent,
             canYouStopAgent = wizardData.CanYouStopAgent,
             readyToProceedNow = wizardData.ReadyToProceedNow,
-            anyVisaRefusalOrBan = wizardData.AnyVisaRefusalOrBan,
+            anyVisaRefusalOrBan = wizardData.AnyVisaRefusalOrBan ?? "",
             tryYourLuckWithChosenCountryOrNot = wizardData.TryYourLuckWithChosenCountryOrNot,
-            yearOfLastAcademicStudies = 0,  //this needs to be validated from UI
-            yearOfCompletion = 0, //this needs to be validated from UI
+            yearOfLastAcademicStudies = Convert.ToInt32(PickerYearOfLastAcademicStudies.SelectedItem),
+            yearOfCompletion = Convert.ToInt32(PickerYearOfLastAcademicStudies.SelectedItem),
+            countryOfStudy1 = countryOfStudyId1,
+            countryOfStudy2 = countryOfStudyId2,
+            countryOfStudy3 = countryOfStudyId3,
+            age = CalculateAge(wizardData.DateOfBirth),
             dateApplied = "2026-03-11T05:24:04.905Z",
+            password = "admin",
             onboardingComplete = true
-            
-       
         };
+
+        
+        
+        // var studentData = new
+        // {
+        //     firstName = SessionManager.FirstName,
+        //     surname = SessionManager.Surname,
+        //     email = SessionManager.Email,
+        //     phoneNumber = SessionManager.PhoneNumber,
+        //     address = wizardData.Address,
+        //     dateOfBirth = wizardData.DateOfBirth,
+        //     marritalStatus = wizardData.MaritalStatus,
+        //     happyToTravelFirst = wizardData.HappyToTravelFirst == "Yes" ? true : false,
+        //     preferredAcademicIntake = wizardData.PreferredAcademicIntake,
+        //     programOfStudy = wizardData.ProgramOfStudy,
+        //     qualificationObtained = wizardData.QualificationObtained,
+        //     grades = wizardData.Grades,
+        //     sponsor = String.IsNullOrWhiteSpace( wizardData.Sponsor) ? 0 : Convert.ToInt32( wizardData.Sponsor ),
+        //     totalArriveAbroadBudget = String.IsNullOrWhiteSpace( wizardData.TotalArriveAbroadBudget) ? 0 : Convert.ToDecimal( wizardData.TotalArriveAbroadBudget),
+        //     availableDeposit = String.IsNullOrWhiteSpace( wizardData.AvailableDeposit) ? 0 : Convert.ToDecimal(wizardData.AvailableDeposit),
+        //     availabilityOfMaintenanceFunds = wizardData.AvailabilityOfMaintenanceFunds,
+        //     areFundsAvailableNow = wizardData.AreFundsAvailableNow,
+        //     anyAgent = wizardData.AnyAgent,
+        //     canYouStopAgent = wizardData.CanYouStopAgent,
+        //     readyToProceedNow = wizardData.ReadyToProceedNow,
+        //     anyVisaRefusalOrBan = wizardData.AnyVisaRefusalOrBan,
+        //     tryYourLuckWithChosenCountryOrNot = wizardData.TryYourLuckWithChosenCountryOrNot,
+        //     yearOfLastAcademicStudies = 0,  //this needs to be validated from UI
+        //     yearOfCompletion = 0, //this needs to be validated from UI
+        //     dateApplied = "2026-03-11T05:24:04.905Z",
+        //     password = "admin",
+        //     onboardingComplete = true
+        //     
+        //
+        // };
 
         
         // object studentData = step switch
@@ -326,7 +365,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         //
         // int count2 = count;
         
-        if (studentData != null)
+        if (studentData != null && step == 3)
         {
             await _api.UpdateStudent(SessionManager.StudentId, studentData);
             try
@@ -489,7 +528,25 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             }
         }
     }
+    
+    
+    
+    public int CalculateAge(string dateOfBirth)
+    {
+        if (string.IsNullOrWhiteSpace(dateOfBirth))
+            return 0;
 
+        // Parse the date safely
+        DateTime dob = DateTime.Parse(dateOfBirth);
+
+        int age = DateTime.Today.Year - dob.Year;
+
+        // Adjust if birthday hasn't happened yet this year
+        if (dob.Date > DateTime.Today.AddYears(-age)) 
+            age--;
+
+        return age;
+    }
     
     public static int CountProperties(object obj)
     {
