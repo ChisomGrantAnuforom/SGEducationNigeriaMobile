@@ -16,7 +16,7 @@ public class Student
     public string DateOfBirth { get; set; }
     public string PreferredAcademicIntake { get; set; }
     public string MarritalStatus { get; set; }
-    public bool HappyToTravelFirst { get; set; }
+    public string HappyToTravelFirst { get; set; }
     public int YearOfLastAcademicStudies { get; set; }
 
     public string QualificationObtained { get; set; }
@@ -31,15 +31,15 @@ public class Student
 
     public decimal AvailableDeposit { get; set; }
 
-    public bool AnyAgent { get; set; }
+    public string AnyAgent { get; set; }
 
-    public bool CanYouStopAgent { get; set; }
+    public string CanYouStopAgent { get; set; }
 
     public string AnyVisaRefusalOrBan { get; set; }
 
-    public bool AvailabilityOfMaintenanceFunds { get; set; }
+    public string AvailabilityOfMaintenanceFunds { get; set; }
 
-    public bool ReadyToProceedNow { get; set; }
+    public string ReadyToProceedNow { get; set; }
 
     public decimal TotalArriveAbroadBudget { get; set; }
 

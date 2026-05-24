@@ -176,7 +176,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
     {
 
         SetBusy(true);
-        
+
         int countryOfStudyId1 = 0;
         int countryOfStudyId2 = 0;
         int countryOfStudyId3 = 0;
@@ -185,25 +185,28 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         if (step == 1)
         {
             if (PickerCountryOfStudy1.SelectedIndex > 0)
-                countryOfStudyId1 = (await _api.GetCountryByCountryName(PickerCountryOfStudy1.SelectedItem.ToString())).Id;
+                countryOfStudyId1 = (await _api.GetCountryByCountryName(PickerCountryOfStudy1.SelectedItem.ToString()))
+                    .Id;
 
             if (PickerCountryOfStudy2.SelectedIndex > 0)
-                countryOfStudyId2 = (await _api.GetCountryByCountryName(PickerCountryOfStudy2.SelectedItem.ToString())).Id;
+                countryOfStudyId2 = (await _api.GetCountryByCountryName(PickerCountryOfStudy2.SelectedItem.ToString()))
+                    .Id;
 
             if (PickerCountryOfStudy3.SelectedIndex > 0)
-                countryOfStudyId3 = (await _api.GetCountryByCountryName(PickerCountryOfStudy3.SelectedItem.ToString())).Id;
+                countryOfStudyId3 = (await _api.GetCountryByCountryName(PickerCountryOfStudy3.SelectedItem.ToString()))
+                    .Id;
         }
-        
-        
+
+
         switch (step)
         {
             case 0:
-                wizardData.Address  = EntryAddress.Text;
-                wizardData.DateOfBirth = Convert.ToDateTime( PickerDob.Date.ToString()).ToString("yyyy-MM-dd");
+                wizardData.Address = EntryAddress.Text;
+                wizardData.DateOfBirth = Convert.ToDateTime(PickerDob.Date.ToString()).ToString("yyyy-MM-dd");
                 wizardData.MaritalStatus = PickerMarital.SelectedItem?.ToString();
                 wizardData.HappyToTravelFirst = PickerHappyToTravelFirst.SelectedItem?.ToString();
                 break;
-            
+
             case 1:
                 wizardData.PreferredAcademicIntake = PickerPreferedAcademicIntake.SelectedItem?.ToString();
                 wizardData.CountryOfStudy1 = countryOfStudyId1;
@@ -212,21 +215,22 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                 wizardData.ProgramOfStudy = EntryProgramOfStudy.Text;
                 wizardData.QualificationObtained = EntryQualification.Text;
                 wizardData.Grades = EntryGrades.Text;
-                
+
                 break;
 
             case 2:
                 wizardData.Sponsor = "0";
                 wizardData.TotalArriveAbroadBudget = EntryBudget.Text;
                 wizardData.AvailableDeposit = EntryDeposit.Text;
-                wizardData.AvailabilityOfMaintenanceFunds = SwitchFundsForMaintenance.IsToggled;
-                wizardData.AreFundsAvailableNow = SwitchFundsAvailableNow.IsToggled;
+                wizardData.AvailabilityOfMaintenanceFunds = PickerFundsForMaintenance.SelectedItem?.ToString();
+                wizardData.AreFundsAvailableNow = PickerFundsAvailableNow.SelectedItem?.ToString();
                 break;
 
+
             case 3:
-                wizardData.AnyAgent = SwitchAnyOtherAgent.IsToggled;
-                wizardData.CanYouStopAgent = SwitchCanYouStopAgent.IsToggled;
-                wizardData.ReadyToProceedNow = SwitchReady.IsToggled;
+                wizardData.AnyAgent = PickerAnyOtherAgent.SelectedItem.ToString();
+                wizardData.CanYouStopAgent = PickerCanYouStopAgent.SelectedItem.ToString();
+                wizardData.ReadyToProceedNow = PickerReady.SelectedItem.ToString();
                 wizardData.AnyVisaRefusalOrBan = EntryVisaRefusal.Text;
                 wizardData.TryYourLuckWithChosenCountryOrNot = EntryTryYourLuck.Text;
                 break;
@@ -234,9 +238,9 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             default:
                 break;
         }
-        
-        
-        
+
+
+
         var studentData = new
         {
             firstName = SessionManager.FirstName,
@@ -246,7 +250,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             address = wizardData.Address,
             dateOfBirth = wizardData.DateOfBirth,
             marritalStatus = wizardData.MaritalStatus,
-            happyToTravelFirst = wizardData.HappyToTravelFirst == "Yes",
+            happyToTravelFirst = wizardData.HappyToTravelFirst,
             preferredAcademicIntake = wizardData.PreferredAcademicIntake,
             programOfStudy = wizardData.ProgramOfStudy,
             qualificationObtained = wizardData.QualificationObtained,
@@ -255,7 +259,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             totalArriveAbroadBudget = Convert.ToDecimal(wizardData.TotalArriveAbroadBudget),
             availableDeposit = Convert.ToDecimal(wizardData.AvailableDeposit),
             availabilityOfMaintenanceFunds = wizardData.AvailabilityOfMaintenanceFunds,
-            areFundsAvailableNow = wizardData.AreFundsAvailableNow ? "Yes" : "No",
+            areFundsAvailableNow = wizardData.AreFundsAvailableNow,
             anyAgent = wizardData.AnyAgent,
             canYouStopAgent = wizardData.CanYouStopAgent,
             readyToProceedNow = wizardData.ReadyToProceedNow,
@@ -272,113 +276,28 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             onboardingComplete = true
         };
 
-        
-        
-        // var studentData = new
-        // {
-        //     firstName = SessionManager.FirstName,
-        //     surname = SessionManager.Surname,
-        //     email = SessionManager.Email,
-        //     phoneNumber = SessionManager.PhoneNumber,
-        //     address = wizardData.Address,
-        //     dateOfBirth = wizardData.DateOfBirth,
-        //     marritalStatus = wizardData.MaritalStatus,
-        //     happyToTravelFirst = wizardData.HappyToTravelFirst == "Yes" ? true : false,
-        //     preferredAcademicIntake = wizardData.PreferredAcademicIntake,
-        //     programOfStudy = wizardData.ProgramOfStudy,
-        //     qualificationObtained = wizardData.QualificationObtained,
-        //     grades = wizardData.Grades,
-        //     sponsor = String.IsNullOrWhiteSpace( wizardData.Sponsor) ? 0 : Convert.ToInt32( wizardData.Sponsor ),
-        //     totalArriveAbroadBudget = String.IsNullOrWhiteSpace( wizardData.TotalArriveAbroadBudget) ? 0 : Convert.ToDecimal( wizardData.TotalArriveAbroadBudget),
-        //     availableDeposit = String.IsNullOrWhiteSpace( wizardData.AvailableDeposit) ? 0 : Convert.ToDecimal(wizardData.AvailableDeposit),
-        //     availabilityOfMaintenanceFunds = wizardData.AvailabilityOfMaintenanceFunds,
-        //     areFundsAvailableNow = wizardData.AreFundsAvailableNow,
-        //     anyAgent = wizardData.AnyAgent,
-        //     canYouStopAgent = wizardData.CanYouStopAgent,
-        //     readyToProceedNow = wizardData.ReadyToProceedNow,
-        //     anyVisaRefusalOrBan = wizardData.AnyVisaRefusalOrBan,
-        //     tryYourLuckWithChosenCountryOrNot = wizardData.TryYourLuckWithChosenCountryOrNot,
-        //     yearOfLastAcademicStudies = 0,  //this needs to be validated from UI
-        //     yearOfCompletion = 0, //this needs to be validated from UI
-        //     dateApplied = "2026-03-11T05:24:04.905Z",
-        //     password = "admin",
-        //     onboardingComplete = true
-        //     
-        //
-        // };
-
-        
-        // object studentData = step switch
-        // {
-        //     0 => new
-        //     {
-        //          wizardData.Address = EntryAddress.Text,
-        //         dateOfBirth = Convert.ToDateTime( PickerDob.Date.ToString()).ToString("yyyy-MM-dd"),
-        //         marritalStatus = PickerMarital.SelectedItem?.ToString(),
-        //         happyToTraverlFirst = PickerHappyToTravelFirst.SelectedItem?.ToString()
-        //     },
-        //
-        //     1 => new
-        //     {
-        //         // PreferredAcademicIntake = PickerPreferedAcademicIntake.SelectedItem?.ToString(),
-        //         // CountryOfStudy1 = PickerCountryOfStudy1.SelectedItem?.ToString(),
-        //         // CountryOfStudyId1,
-        //         // CountryOfStudy2 = PickerCountryOfStudy2.SelectedItem?.ToString(),
-        //         // CountryOfStudyId2,
-        //         // CountryOfStudy3 = PickerCountryOfStudy3.SelectedItem?.ToString(),
-        //         // CountryOfStudyId3,
-        //         
-        //         
-        //         PreferredAcademicIntake = PickerPreferedAcademicIntake.SelectedItem?.ToString(),
-        //         CountryOfStudy1 = countryOfStudyId1,
-        //         CountryOfStudy2 = countryOfStudyId2,
-        //         CountryOfStudy3 = countryOfStudyId3,
-        //         programOfStudy = EntryProgramOfStudy.Text,
-        //         qualificationObtained = EntryQualification.Text,
-        //         grades = EntryGrades.Text
-        //         
-        //     },
-        //
-        //     2 => new
-        //     {
-        //         sponsor = EntrySponsor.Text,
-        //         totalArriveAbroadBudget = EntryBudget.Text,
-        //         availableDeposit = EntryDeposit.Text,
-        //         availabilityOfMaintenanceFunds = SwitchFundsForMaintenance.IsToggled,
-        //         areFundsAvailableNow = SwitchFundsAvailableNow.IsToggled
-        //     },
-        //
-        //     3 => new
-        //     {
-        //         anyAgent = SwitchAnyOtherAgent.IsToggled,
-        //         canYouStopAgent = SwitchCanYouStopAgent.IsToggled,
-        //         readyToProceedNow = SwitchReady.IsToggled,
-        //         anyVisaRefusal = EntryVisaRefusal.Text,
-        //         tryYourLuckWithChosenCountryOrNot = EntryTryYourLuck.Text
-        //     },
-        //
-        //     _ => null
-        // };
 
 
-        // int count = CountProperties(studentData);
-        //
-        // int count2 = count;
-        
+
         if (studentData != null && step == 3)
         {
-            await _api.UpdateStudent(SessionManager.StudentId, studentData);
+
             try
             {
+
+                await _api.UpdateStudent(SessionManager.StudentId, studentData);
+
                 //saving student country of preference data
-                IEnumerable<StudentCountryOfPreference> studentStudyCountry =  await _api.GetStudentCountryOfPreferenceByStudentId(SessionManager.StudentId);
+                IEnumerable<StudentCountryOfPreference> studentStudyCountry =
+                    await _api.GetStudentCountryOfPreferenceByStudentId(SessionManager.StudentId);
                 if (studentStudyCountry.Count() > 0) //if the student has existing records for country of preference
                 {
-                    foreach (var c in studentStudyCountry )
+                    foreach (var c in studentStudyCountry)
                     {
-                        
+
                         //checking if any of the countries matches the selected countries
-                        if (c.CountryId != countryOfStudyId1 && c.CountryId != countryOfStudyId2 && c.CountryId != countryOfStudyId3)
+                        if (c.CountryId != countryOfStudyId1 && c.CountryId != countryOfStudyId2 &&
+                            c.CountryId != countryOfStudyId3)
                         {
 
                             if (countryOfStudyId1 > 0)
@@ -424,68 +343,12 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                             }
 
                         }
-                        // else
-                        // {
-                        //     //deleting the record
-                        //     await _api.DeleteStudentCountryOfPreference(c.Id);
-                        //     
-                        // }
-                     
-                  
-                        // if (c.CountryId == countryOfStudyId2 )//checking country two
-                        // {
-                        //     //deleting the record
-                        //     await _api.DeleteStudentCountryOfPreference(c.Id);
-                        // }
-                        //
-                        //
-                        // if (c.CountryId == countryOfStudyId3 )//checking country three
-                        // {
-                        //     //deleting the record
-                        //     await _api.DeleteStudentCountryOfPreference(c.Id);
-                        // }
+
 
                     }
 
- 
-
-                    // if (countryOfStudyId1 > 0)
-                    // {
-                    //     var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference()
-                    //     {
-                    //         StudentId = SessionManager.StudentId,
-                    //         CountryId = countryOfStudyId1
-                    //     };
-                    //     
-                    //     await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
-                    // }
-                    //
-                    // if (countryOfStudyId2 > 0)
-                    // {
-                    //     var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference
-                    //     {
-                    //         StudentId = SessionManager.StudentId,
-                    //         CountryId = countryOfStudyId2
-                    //     };
-                    //
-                    //     await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
-                    // }
-                    //
-                    //
-                    // if (countryOfStudyId3 > 0)
-                    // {
-                    //     
-                    //     var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference
-                    //     {
-                    //         StudentId = SessionManager.StudentId,
-                    //         CountryId = countryOfStudyId3
-                    //     };
-                    //
-                    //
-                    //     await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
-                    // }
                 }
-                else  //f the student does not have existing records for country of preference
+                else //f the student does not have existing records for country of preference
                 {
                     if (countryOfStudyId1 > 0)
                     {
@@ -505,11 +368,11 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                             StudentId = SessionManager.StudentId,
                             CountryId = countryOfStudyId2
                         };
-                        
+
                         await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
                     }
-                    
-                    
+
+
                     if (countryOfStudyId3 > 0)
                     {
                         var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference()
@@ -523,14 +386,14 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", "Error has occured. "+ex.Message, "OK");
-                Console.WriteLine("ERRRRR ##########"+ex.Message);
+                DisplayAlert("Error", "Error has occured. " + ex.Message, "OK");
+                Console.WriteLine("ERRRRR ##########" + ex.Message);
             }
         }
     }
-    
-    
-    
+
+
+
     public int CalculateAge(string dateOfBirth)
     {
         if (string.IsNullOrWhiteSpace(dateOfBirth))
@@ -631,7 +494,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                 break;
 
             case 3:
-                if (!SwitchReady.IsToggled)
+                if (PickerReady.SelectedIndex == 0)
                 {
                     DisplayAlert("Validation", "Please confirm you are ready to proceed.", "OK");
                     return false;

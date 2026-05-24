@@ -88,22 +88,33 @@ public class ApiService
     
     public async Task<bool> UpdateStudent(int id, object updatedData)
     {
-        var json = JsonSerializer.Serialize(updatedData, new JsonSerializerOptions
+        HttpResponseMessage response = null;
+
+        try
         {
-            PropertyNamingPolicy = null
-        });
-    
-        Debug.WriteLine(json);
-        
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
-    
-        var response = await _client.PutAsync(
-            $"http://api.sgeducationnigerialtd.com/api/students/{id}", 
-            content
-        );
-    
-        return response.IsSuccessStatusCode;
+            var json = JsonSerializer.Serialize(updatedData, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = null
+            });
+
+            Debug.WriteLine(json);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            response = await _client.PutAsync(
+                $"http://api.sgeducationnigerialtd.com/api/students/{id}",
+                content
+            );
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("XXXXXXXXXXXXX:::::::::: " + ex.Message);
+            return false; // important!
+        }
+
+        return response != null && response.IsSuccessStatusCode;
     }
+
 
     
     

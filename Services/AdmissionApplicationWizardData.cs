@@ -23,13 +23,13 @@ public class AdmissionApplicationWizardData
     public string Sponsor { get; set; }
     public string TotalArriveAbroadBudget { get; set; }
     public string AvailableDeposit { get; set; }
-    public bool AvailabilityOfMaintenanceFunds { get; set; }
-    public bool AreFundsAvailableNow { get; set; }
+    public string AvailabilityOfMaintenanceFunds { get; set; }
+    public string AreFundsAvailableNow { get; set; }
 
     // Step 3
-    public bool AnyAgent { get; set; }
-    public bool CanYouStopAgent { get; set; }
-    public bool ReadyToProceedNow { get; set; }
+    public string AnyAgent { get; set; }
+    public string CanYouStopAgent { get; set; }
+    public string ReadyToProceedNow { get; set; }
     public string AnyVisaRefusalOrBan { get; set; }
     public string TryYourLuckWithChosenCountryOrNot { get; set; }
 }

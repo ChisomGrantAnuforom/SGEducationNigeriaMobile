@@ -39,12 +39,12 @@
         <!-- STEP 1 -->
         <VerticalStackLayout x:Name="Step1Layout" IsVisible="True" Spacing="12">
             <Label Text="Address:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
-            <Entry x:Name="EntryAddress" Placeholder="Enter your Address" TextColor="Black">
+            <Entry x:Name="EntryAddress" Placeholder="Enter your Address" TextColor="Black" HeightRequest="100">
                 <!-- <Entry.Behaviors> -->
                 <!--     <behaviors:KeyboardAutoScrollBehavior ScrollView="{x:Reference MainScrollView}" /> -->
                 <!-- </Entry.Behaviors> -->
             </Entry>
-            <Label Text="Date of Birth:"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+            <Label Text="Date of Birth (Click below to select):"  FontAttributes="Bold" FontSize="18" TextColor="Black"/>
             <DatePicker x:Name="PickerDob" TextColor="Black"/>
             <Label Text="Marital Status:"  FontAttributes="Bold" FontSize="18" TextColor="Black" />
             <Picker x:Name="PickerMarital" Title="Select your Marital Status" TextColor="Black">
@@ -118,27 +118,54 @@
             <Label Text="How much of your tuition fees can you pay as Deposit?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Entry x:Name="EntryDeposit" Placeholder="Deposit" TextColor="Black" />
             <Label Text="Do you have funds for POF, Maintenance or Living Expenses or will need support with it?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
-            <Switch x:Name="SwitchFundsForMaintenance"/>
+                <Picker x:Name="PickerFundsForMaintenance" Title="Select..." TextColor="Black">
+                            <Picker.Items>
+                                <x:String>Yes</x:String>
+                                <x:String>No</x:String>
+                            </Picker.Items>
+                </Picker>
             
             
             <Label Text="Are the funds available and ready NOW for the admissions process?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
-            <Switch x:Name="SwitchFundsAvailableNow"/>
+            <Picker x:Name="PickerFundsAvailableNow" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
             
         </VerticalStackLayout>
 
         <!-- STEP 4 -->
         <VerticalStackLayout x:Name="Step4Layout" IsVisible="False" Spacing="12">
             <Label Text="Any other Educational Agents or SOMEONE Else working on your behalf?" TextColor="Black"/>
-            <Switch x:Name="SwitchAnyOtherAgent"/>
+            <Picker x:Name="PickerAnyOtherAgent" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
             <Label Text="If yes, are you happy to inform them to STOP via a POA ( Power of Attorney ) so that we proceed with your applications?" TextColor="Black"/>
-            <Switch x:Name="SwitchCanYouStopAgent"/>
+            <Picker x:Name="PickerCanYouStopAgent" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
+            
             <Label Text="Any previous VISA REFUSALS? Which Countries and how many times? Any Visa BANS from Any country? What kind of visa application was the refusal for?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
             <Entry x:Name="EntryVisaRefusal" Placeholder="Please enter details" TextColor="Black"/>
             <!-- <Switch x:Name="VisaSwitch"/> -->
             <!-- <Entry x:Name="VisaEntry" Placeholder="Budget" Keyboard="Numeric"/> -->
             
             <Label Text="Are You READY to proceed with the admissions now?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
-            <Switch x:Name="SwitchReady"/>
+            <Picker x:Name="PickerReady" Title="Select..." TextColor="Black">
+                <Picker.Items>
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </Picker.Items>
+            </Picker>
+
             
             <Label Text="Will You Prefer To Try Your LUCK with your chosen Country for Student Visa or go with a country that Student Visa is GUARANTEED?" FontSize="18" FontAttributes="Bold"  TextColor="Black"/>
             <Entry x:Name="EntryTryYourLuck" Placeholder="Enter your response" TextColor="Black"/>
