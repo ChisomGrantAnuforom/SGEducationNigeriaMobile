@@ -47,7 +47,7 @@ public partial class DashboardPage : ContentPage
         var studentDocumentData = await _api.GetStudentDocuments(SessionManager.StudentId);
         if (studentDocumentData != null)
         {
-            LabelUploadDocsInfo.Text  = "View Your Upload Documents";
+            LabelUploadDocsInfo.Text  = "View Your Uploaded Documents";
         }
     }
 
