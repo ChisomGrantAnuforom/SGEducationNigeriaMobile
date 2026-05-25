@@ -27,7 +27,7 @@ public class Student
          
     public int YearOfCompletion { get; set; }
 
-    public int Sponsor { get; set; }
+    public string Sponsor { get; set; }
 
     public decimal AvailableDeposit { get; set; }
 

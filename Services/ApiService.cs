@@ -31,6 +31,13 @@ public class ApiService
     // }
     
     
+    public async Task<Student> GetStudentByStudentId(int studentId)
+    {
+        return await _client.GetFromJsonAsync<Student>(
+            $"http://api.sgeducationnigerialtd.com/api/students/{studentId}"
+        );
+    }
+    
     public async Task<Student?> RegisterStudent(object student)
     {
         var json = JsonSerializer.Serialize(student);

@@ -9,14 +9,21 @@ namespace SGEducationNigeriaMobile.Pages.User;
 
 public partial class DashboardPage : ContentPage
 {
-    public DashboardPage()
+    
+    private readonly ApiService _api;
+    
+    public DashboardPage(ApiService api)
     {
         
         try
         {
             InitializeComponent();
+            
+            _api = api;
 
             LabelStudentName.Text = SessionManager.StudentName;
+            
+            ValidateStudentStatus();
 
             Routing.RegisterRoute("AdmissionApplicationWizardPage", typeof(AdmissionApplicationWizardPage));
             
@@ -25,6 +32,22 @@ public partial class DashboardPage : ContentPage
         catch (Exception ex)
         {
             Console.WriteLine("RRRRRRRRR::::: "+ex.Message);
+        }
+    }
+    
+
+    private async void ValidateStudentStatus()
+    {
+        var studentData = await _api.GetStudentByStudentId(SessionManager.StudentId);
+        if (studentData != null)
+        {
+            LabelApplyForAdmissionInfo.Text = "View Your Application";
+        }
+        
+        var studentDocumentData = await _api.GetStudentDocuments(SessionManager.StudentId);
+        if (studentDocumentData != null)
+        {
+            LabelUploadDocsInfo.Text  = "View Your Upload Documents";
         }
     }
 

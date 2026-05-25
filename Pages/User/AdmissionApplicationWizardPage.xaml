@@ -138,14 +138,14 @@
 
         <!-- STEP 4 -->
         <VerticalStackLayout x:Name="Step4Layout" IsVisible="False" Spacing="12">
-            <Label Text="Any other Educational Agents or SOMEONE Else working on your behalf?" TextColor="Black"/>
+            <Label Text="Any other Educational Agents or SOMEONE Else working on your behalf?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Picker x:Name="PickerAnyOtherAgent" Title="Select..." TextColor="Black">
                 <Picker.Items>
                     <x:String>Yes</x:String>
                     <x:String>No</x:String>
                 </Picker.Items>
             </Picker>
-            <Label Text="If yes, are you happy to inform them to STOP via a POA ( Power of Attorney ) so that we proceed with your applications?" TextColor="Black"/>
+            <Label Text="If yes, are you happy to inform them to STOP via a POA ( Power of Attorney ) so that we proceed with your applications?" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
             <Picker x:Name="PickerCanYouStopAgent" Title="Select..." TextColor="Black">
                 <Picker.Items>
                     <x:String>Yes</x:String>

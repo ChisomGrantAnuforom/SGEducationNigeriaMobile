@@ -58,7 +58,9 @@
                                WidthRequest="50"
                                HeightRequest="50"/>
                         
-                        <Label Text="Apply for Admission"
+                        <Label 
+                            x:Name="LabelApplyForAdmissionInfo"
+                            Text="Apply for Admission"
                                FontSize="15"
                                TextColor="Black"
                                HorizontalOptions="Center"/>
@@ -81,10 +83,11 @@
                                WidthRequest="50"
                                HeightRequest="50" />
 
-                        <Label Text="Upload Docs"
-                               FontSize="15"
-                               TextColor="Black"
-                               HorizontalOptions="Center" />
+                        <Label x:Name="LabelUploadDocsInfo" 
+                             Text="Upload Docs"
+                             FontSize="15"
+                             TextColor="Black"
+                             HorizontalOptions="Center" />
                     </VerticalStackLayout>
                 </Border>
 

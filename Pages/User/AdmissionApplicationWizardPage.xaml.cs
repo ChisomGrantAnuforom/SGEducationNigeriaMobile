@@ -30,6 +30,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             _api = api;
             UpdateUI();
             LoadYears();
+            LoadStudentAdmissionData(SessionManager.StudentId);
             Routing.RegisterRoute("DocumentUploadPage", typeof(DocumentUploadPage));
         }
         catch (Exception ex)
@@ -134,8 +135,8 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             
             SetBusy(true);
             
-            // if(!ValidateStep(step))
-            //     return;
+            if(!ValidateStep(step))
+                return;
 
             await SaveStep();
 
@@ -183,6 +184,8 @@ public partial class AdmissionApplicationWizardPage : ContentPage
     {
 
         SetBusy(true);
+
+     
 
    
         // STEP 1: Capture country IDs BEFORE creating the anonymous object
@@ -561,6 +564,24 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                     return false;
                 }
 
+                if (PickerCountryOfStudy1.SelectedIndex == 0)
+                {
+                    DisplayAlert("Validation", "Please select your first country of study.", "OK");
+                    return false;
+                }
+                
+                if (PickerCountryOfStudy2.SelectedIndex == 0)
+                {
+                    DisplayAlert("Validation", "Please select your second country of study.", "OK");
+                    return false;
+                }
+                
+                if (PickerCountryOfStudy3.SelectedIndex == 0)
+                {
+                    DisplayAlert("Validation", "Please select your third country of study.", "OK");
+                    return false;
+                }
+
                 if (PickerYearOfLastAcademicStudies.SelectedIndex <= 0)
                 {
                     DisplayAlert("Validation", "Please select the year you finished your studies.", "OK");
@@ -588,6 +609,13 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                 break;
 
             case 2:
+
+                if (string.IsNullOrWhiteSpace(EntrySponsor.Text))
+                {
+                    DisplayAlert("Validation", "Please enter your sponsor.", "OK");
+                    return false;   
+                }
+                
                 if (string.IsNullOrWhiteSpace(EntryBudget.Text))
                 {
                     DisplayAlert("Validation", "Please enter your budget.", "OK");
@@ -599,20 +627,133 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                     DisplayAlert("Validation", "Please enter your deposit amount.", "OK");
                     return false;
                 }
+                
+                if (PickerFundsForMaintenance.SelectedItem == null)
+                {
+                    DisplayAlert("Validation", "Please select your maintenance funds status.", "OK");
+                    return false;
+                }
+                
+                
+                if (PickerFundsAvailableNow.SelectedItem == null)
+                {
+                    DisplayAlert("Validation", "Please select your maintenance funds status.", "OK");
+                    return false;
+                }
 
                 break;
 
             case 3:
+
+                if (PickerAnyOtherAgent.SelectedItem == null)
+                {
+                    DisplayAlert("Validation", "Please select if you have any other agent.", "OK");
+                    return false;
+                }
+
+                if (PickerCanYouStopAgent.SelectedItem == null)
+                {
+                    DisplayAlert("Validation", "Please select if you can stop agent.", "OK");
+                    return false;
+                }
+
+
+                if (string.IsNullOrWhiteSpace(EntryVisaRefusal.Text))
+                {
+                    DisplayAlert("Validation", "Please enter your visa refusals, if any.", "OK");
+                }
+                
                 if (PickerReady.SelectedIndex == 0)
                 {
                     DisplayAlert("Validation", "Please confirm you are ready to proceed.", "OK");
                     return false;
                 }
 
+                if (string.IsNullOrWhiteSpace(EntryTryYourLuck.Text))
+                {
+                    DisplayAlert("Validation", "Please enter if you prefer to try your luck with your chosen country...", "OK");
+                }
+
                 break;
         }
 
         return true;
+    }
+
+
+
+    private async void LoadStudentAdmissionData(int studentId)
+    {
+        var studentData = await _api.GetStudentByStudentId(studentId);
+
+        if (studentData != null)
+        {
+            //load to controls
+            //step one controls
+            EntryAddress.Text= studentData.Address;
+            PickerDob.Date = Convert.ToDateTime( studentData.DateOfBirth);
+            PickerMarital.SelectedItem = studentData.MarritalStatus;
+            PickerHappyToTravelFirst.SelectedItem = studentData.HappyToTravelFirst;
+            
+            //step two controls
+            PickerPreferedAcademicIntake.SelectedItem = studentData.PreferredAcademicIntake;
+            
+            var studentCountryList = await _api.GetStudentCountryOfPreferenceByStudentId(studentId);
+            if (studentCountryList != null)
+            {
+                if (studentCountryList.Count() == 1)
+                {
+                    var countryObj1 = await _api.GetCountry(studentCountryList.First().CountryId);
+                    PickerCountryOfStudy1.SelectedItem = countryObj1.CountryName;
+                    
+                }
+                else if (studentCountryList.Count() == 2)
+                {
+                    var countryObj1 = await _api.GetCountry(studentCountryList.First().CountryId);
+                    PickerCountryOfStudy1.SelectedItem = countryObj1.CountryName;
+                    
+                    var countryObj2 = await _api.GetCountry(studentCountryList.ElementAt(1).CountryId);
+                    PickerCountryOfStudy2.SelectedItem = countryObj2.CountryName;
+                }
+                else if (studentCountryList.Count() == 3)
+                {
+                    var countryObj1 = await _api.GetCountry(studentCountryList.First().CountryId);
+                    PickerCountryOfStudy1.SelectedItem = countryObj1.CountryName;
+                    
+                    var countryObj2 = await _api.GetCountry(studentCountryList.ElementAt(1).CountryId);
+                    PickerCountryOfStudy2.SelectedItem = countryObj2.CountryName;
+                    
+                    var countryObj3 = await _api.GetCountry(studentCountryList.ElementAt(2).CountryId);
+                    PickerCountryOfStudy3.SelectedItem = countryObj3.CountryName;
+                }
+            }
+            
+            PickerYearOfLastAcademicStudies.SelectedItem = studentData.YearOfLastAcademicStudies;
+            EntryProgramOfStudy.Text = studentData.ProgramOfStudy;
+            EntryQualification.Text = studentData.QualificationObtained;
+            EntryGrades.Text = studentData.Grades;
+            
+            
+            //step three controls
+            EntrySponsor.Text = studentData.Sponsor;
+            EntryBudget.Text = studentData.TotalArriveAbroadBudget.ToString();
+            EntryDeposit.Text = studentData.AvailableDeposit.ToString();
+            PickerFundsForMaintenance.SelectedItem = studentData.AvailabilityOfMaintenanceFunds;
+            PickerFundsAvailableNow.SelectedItem = studentData.AreFundsAvailableNow;
+            
+            
+            //step four controls
+            PickerAnyOtherAgent.SelectedItem = studentData.AnyAgent;
+            PickerCanYouStopAgent.SelectedItem = studentData.CanYouStopAgent;
+            EntryVisaRefusal.Text = studentData.AnyVisaRefusalOrBan;
+            PickerReady.SelectedItem = studentData.ReadyToProceedNow;
+            EntryTryYourLuck.Text = studentData.TryYourLuckWithChosenCountryOrNot;
+
+
+
+
+
+        }
     }
 
 
