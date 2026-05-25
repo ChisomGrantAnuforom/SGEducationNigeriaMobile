@@ -30,6 +30,10 @@ public static class MauiProgram
         builder.Services.AddTransient<RegistrationWizardPage>();
         builder.Services.AddTransient<UserHomePage>();
         builder.Services.AddTransient<DocumentUploadPage>();
+        
+        // builder.Services.AddSingleton<HttpClient>();
+        // builder.Services.AddSingleton<ApiService>();
+
 
         builder.Services.AddTransient<AdmissionApplicationWizardPage>();
 #if DEBUG

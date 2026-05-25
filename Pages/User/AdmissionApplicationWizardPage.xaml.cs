@@ -147,6 +147,7 @@ public partial class AdmissionApplicationWizardPage : ContentPage
             else
             {
                 await Shell.Current.GoToAsync("DocumentUploadPage");
+                Navigation.RemovePage(this);
                 // await DisplayAlert("Done", "Registration complete!", "OK");
             }
         }
@@ -172,15 +173,18 @@ public partial class AdmissionApplicationWizardPage : ContentPage
         }
     }
 
+    
+    int countryOfStudyId1 = 0;
+    int countryOfStudyId2 = 0;
+    int countryOfStudyId3 = 0;
+
+    
     private async Task SaveStep()
     {
 
         SetBusy(true);
 
-        int countryOfStudyId1 = 0;
-        int countryOfStudyId2 = 0;
-        int countryOfStudyId3 = 0;
-
+   
         // STEP 1: Capture country IDs BEFORE creating the anonymous object
         if (step == 1)
         {
@@ -292,60 +296,165 @@ public partial class AdmissionApplicationWizardPage : ContentPage
                     await _api.GetStudentCountryOfPreferenceByStudentId(SessionManager.StudentId);
                 if (studentStudyCountry.Count() > 0) //if the student has existing records for country of preference
                 {
-                    foreach (var c in studentStudyCountry)
+                    
+                    foreach(var studentStudyCountryObj in studentStudyCountry)
                     {
-
-                        //checking if any of the countries matches the selected countries
-                        if (c.CountryId != countryOfStudyId1 && c.CountryId != countryOfStudyId2 &&
-                            c.CountryId != countryOfStudyId3)
-                        {
-
-                            if (countryOfStudyId1 > 0)
-                            {
-
-                                var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference()
-                                {
-                                    StudentId = SessionManager.StudentId,
-                                    CountryId = countryOfStudyId1
-                                };
-
-                                await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
-
-                            }
-
-
-                            if (countryOfStudyId2 > 0)
-                            {
-
-                                var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference
-                                {
-                                    StudentId = SessionManager.StudentId,
-                                    CountryId = countryOfStudyId2
-                                };
-
-                                await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
-
-                            }
-
-
-                            if (countryOfStudyId3 > 0)
-                            {
-
-                                var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference
-                                {
-                                    StudentId = SessionManager.StudentId,
-                                    CountryId = countryOfStudyId3
-                                };
-
-
-                                await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
-
-                            }
-
-                        }
-
-
+                        await _api.DeleteStudentCountryOfPreference(studentStudyCountryObj.Id);
                     }
+                    
+                    //checking if student country of preference has already been saved
+                    //country 1
+                    // var matches = studentStudyCountry
+                    //     .Where(x => x.CountryId == countryOfStudyId1);
+                    //
+                    // if (matches.Count() > 0)
+                    // {
+                    //     //delete the student country
+                    //     await _api.DeleteStudentCountryOfPreferenceByCountryIdAndStudentId(countryOfStudyId1, SessionManager.StudentId);
+                    // }
+                    
+                    var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference()
+                    {
+                        StudentId = SessionManager.StudentId,
+                        CountryId = countryOfStudyId1
+                    };
+
+                    await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
+                    
+                    
+                    
+                    
+                    
+                    //country 2
+                    // var matches2 = studentStudyCountry
+                    //     .Where(x => x.CountryId == countryOfStudyId2);
+                    //
+                    // if (matches2.Count() > 0)
+                    // {
+                    //     //delete the student country
+                    //     await _api.DeleteStudentCountryOfPreferenceByCountryIdAndStudentId(countryOfStudyId2, SessionManager.StudentId);
+                    // }
+                    
+                    var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference()
+                    {
+                        StudentId = SessionManager.StudentId,
+                        CountryId = countryOfStudyId2
+                    };
+
+                    await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
+                    
+                    
+                    
+                    
+                    //country 3
+                    // var matches3 = studentStudyCountry
+                    //     .Where(x => x.CountryId == countryOfStudyId3);
+                    //
+                    // if (matches3.Count() > 0)
+                    // {
+                    //     //delete the student country
+                    //     await _api.DeleteStudentCountryOfPreferenceByCountryIdAndStudentId(countryOfStudyId3, SessionManager.StudentId);
+                    // }
+                    
+                    var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference()
+                    {
+                        StudentId = SessionManager.StudentId,
+                        CountryId = countryOfStudyId3
+                    };
+
+                    await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
+                    
+                    
+                    
+                    
+                    
+                    
+                    // foreach (var c in studentStudyCountry)
+                    // {
+                    //
+                    //     //checking if any of the countries matches the selected countries
+                    //     if (c.CountryId != countryOfStudyId1 && c.CountryId != countryOfStudyId2 &&
+                    //         c.CountryId != countryOfStudyId3)
+                    //     {
+                    //
+                    //         if (countryOfStudyId1 > 0)
+                    //         {
+                    //             
+                    //             //checking if student country of preference has already been saved
+                    //             var matches = studentStudyCountry
+                    //                 .Where(x => x.CountryId == countryOfStudyId1);
+                    //
+                    //             if (matches.Count() > 0)
+                    //             {
+                    //                 //delete the student country
+                    //                 await _api.DeleteStudentCountryOfPreference(countryOfStudyId1);
+                    //             }
+                    //
+                    //
+                    //             var studentCountryOfPreferenceObj1 = new StudentCountryOfPreference()
+                    //             {
+                    //                 StudentId = SessionManager.StudentId,
+                    //                 CountryId = countryOfStudyId1
+                    //             };
+                    //
+                    //             await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj1);
+                    //
+                    //         }
+                    //
+                    //
+                    //         if (countryOfStudyId2 > 0)
+                    //         {
+                    //             
+                    //             //checking if student country of preference has already been saved
+                    //             var matches = studentStudyCountry
+                    //                 .Where(x => x.CountryId == countryOfStudyId2);
+                    //
+                    //             if (matches.Count() > 0)
+                    //             {
+                    //                 //delete the student country
+                    //                 await _api.DeleteStudentCountryOfPreference(countryOfStudyId2);
+                    //             }
+                    //             
+                    //
+                    //             var studentCountryOfPreferenceObj2 = new StudentCountryOfPreference
+                    //             {
+                    //                 StudentId = SessionManager.StudentId,
+                    //                 CountryId = countryOfStudyId2
+                    //             };
+                    //
+                    //             await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj2);
+                    //
+                    //         }
+                    //
+                    //
+                    //         if (countryOfStudyId3 > 0)
+                    //         {
+                    //             
+                    //             //checking if student country of preference has already been saved
+                    //             var matches = studentStudyCountry
+                    //                 .Where(x => x.CountryId == countryOfStudyId3);
+                    //
+                    //             if (matches.Count() > 0)
+                    //             {
+                    //                 //delete the student country
+                    //                 await _api.DeleteStudentCountryOfPreference(countryOfStudyId3);
+                    //             }
+                    //
+                    //             var studentCountryOfPreferenceObj3 = new StudentCountryOfPreference
+                    //             {
+                    //                 StudentId = SessionManager.StudentId,
+                    //                 CountryId = countryOfStudyId3
+                    //             };
+                    //
+                    //
+                    //             await _api.CreateStudentCountryOfPreference(studentCountryOfPreferenceObj3);
+                    //
+                    //         }
+                    //
+                    //     }
+                    //
+                    //
+                    // }
 
                 }
                 else //f the student does not have existing records for country of preference

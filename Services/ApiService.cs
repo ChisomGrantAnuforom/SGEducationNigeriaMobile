@@ -306,5 +306,11 @@ public class ApiService
             throw new Exception("Delete failed");
     }
 
-    
+    public async Task DeleteStudentCountryOfPreferenceByCountryIdAndStudentId(int countryId, int studentId)
+    {
+        var response = await _client.DeleteAsync($"http://api.sgeducationnigerialtd.com/api/StudentCountryOfPreferences/{countryId}/{studentId}");
+
+        if (!response.IsSuccessStatusCode)
+            throw new Exception("Delete failed");
+    }
 } 

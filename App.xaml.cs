@@ -9,8 +9,7 @@ public partial class App : Application
         try
         {
             InitializeComponent();
-
-         
+            
         }
         catch (Exception ex)
         {

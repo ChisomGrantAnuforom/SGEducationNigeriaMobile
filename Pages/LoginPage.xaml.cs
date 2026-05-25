@@ -12,8 +12,10 @@ namespace SGEducationNigeriaMobile.Pages;
 
 public partial class LoginPage : ContentPage
 {
-    
+
     private readonly ApiService _apiService;
+
+    // private readonly HttpClient _client;
     
     public LoginPage( ApiService apiService)
     {
@@ -22,11 +24,13 @@ public partial class LoginPage : ContentPage
         
         _apiService = apiService;
     }
+    
+    
+ 
 
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-
-
+        
         var email = EmailEntry.Text;
         var password = PasswordEntry.Text;
 
@@ -65,12 +69,6 @@ public partial class LoginPage : ContentPage
 
                 Console.WriteLine("Student ID::: " + SessionManager.StudentId);
 
-                // await DisplayAlert("Success", "Logged in!", "OK");
-
-                // var dashboard = App.Current.Handler.MauiContext.Services
-                //     .GetService<DashboardPage>(); 
-                //
-                // await Navigation.PushAsync(dashboard);
 
                 // Application.Current.MainPage = new AppShell();
 
