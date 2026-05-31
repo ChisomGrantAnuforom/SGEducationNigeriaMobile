@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SGEducationNigeriaMobile.Models;
 using SGEducationNigeriaMobile.Services;
 
 namespace SGEducationNigeriaMobile.Pages.User;
@@ -11,6 +12,8 @@ public partial class DashboardPage : ContentPage
 {
     
     private readonly ApiService _api;
+    
+    // private readonly ArticleApiService _articleApi = new();
     
     public DashboardPage(ApiService api)
     {
@@ -24,6 +27,8 @@ public partial class DashboardPage : ContentPage
             LabelStudentName.Text = SessionManager.StudentName;
             
             ValidateStudentStatus();
+            
+            LoadArticles();
 
             Routing.RegisterRoute("AdmissionApplicationWizardPage", typeof(AdmissionApplicationWizardPage));
             
@@ -35,6 +40,29 @@ public partial class DashboardPage : ContentPage
         }
     }
     
+    
+    private async void LoadArticles()
+    {
+        try
+        {
+            var articles = await _api.GetArticlesAsync();
+            List<Article> articleList = new List<Article>();
+            var count = 0;
+            foreach (Article articlesChanged in articles)
+            {
+                count++;
+                articlesChanged.Title = $"Article {count}: "+ articlesChanged.Title;
+               
+                articleList.Add(articlesChanged);
+            }
+           
+            ArticleListView.ItemsSource = articleList;
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("**************Error/Exception*********** ", ex.Message, "OK");
+        }
+    }
 
     private async void ValidateStudentStatus()
     {
@@ -92,4 +120,21 @@ public partial class DashboardPage : ContentPage
            await  DisplayAlert("Error/Exception", ex.Message, "OK");
         }
     }
+    
+    private async void OnViewArticleClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        var article = button.BindingContext as Article;
+
+        await Navigation.PushAsync(new ArticleDetailPage(article)); 
+    }
+    
+    private async void OnProfileHeaderTapped(object sender, TappedEventArgs e)
+    {
+        await Navigation.PushAsync(new ProfilePage(_api));
+
+        // await Shell.Current.GoToAsync("ProfilePage");
+    }
+
+
 }

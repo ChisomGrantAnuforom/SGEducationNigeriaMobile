@@ -135,6 +135,22 @@ public class ApiService
             $"http://api.sgeducationnigerialtd.com/api/studentdocument/student/{studentId}"
         );
     }
+    
+    public async Task<IEnumerable<Article>> GetArticlesAsync()
+    {
+    
+        // var response = await _client.GetAsync("/api/article");
+        // response.EnsureSuccessStatusCode();
+        //
+        // var json = await response.Content.ReadAsStringAsync();
+        // return JsonSerializer.Deserialize<List<Article>>(json,
+        //     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        //
+        return await _client.GetFromJsonAsync<IEnumerable<Article>>(
+            $"http://api.sgeducationnigerialtd.com/api/article"
+        );
+     
+    }
 
 
     // public async Task UploadStudentDocument(int studentId, string fileName, Stream fileStream)

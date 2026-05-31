@@ -46,4 +46,6 @@ public partial class UserShell : Shell
             DisplayAlert("Exception", "EEEERRRRRRRROOOOORRRRR:::::   " + ex.Message, "OK");
         }
     }
+
+
 }

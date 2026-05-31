@@ -23,19 +23,23 @@ public static class MauiProgram
 
 
         // ✅ Register HttpClient + ApiService
-        builder.Services.AddHttpClient<ApiService>(); 
+        builder.Services.AddHttpClient<ApiService>();
+        builder.Services.AddSingleton<ArticleApiService>();
+
 
         builder.Services.AddTransient<RegisterPage>();
         builder.Services.AddTransient<LoginPage>();
         builder.Services.AddTransient<RegistrationWizardPage>();
         builder.Services.AddTransient<UserHomePage>();
         builder.Services.AddTransient<DocumentUploadPage>();
+        builder.Services.AddTransient<ForgotPasswordPage>();
         
         // builder.Services.AddSingleton<HttpClient>();
         // builder.Services.AddSingleton<ApiService>();
 
 
         builder.Services.AddTransient<AdmissionApplicationWizardPage>();
+        builder.Services.AddTransient<ProfilePage>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

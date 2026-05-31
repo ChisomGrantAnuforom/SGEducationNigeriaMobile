@@ -7,6 +7,7 @@
     xmlns:pages="clr-namespace:SGEducationNigeriaMobile.Pages"
     xmlns:user="clr-namespace:SGEducationNigeriaMobile.Pages.User"
     BackgroundColor="#092957"
+    ForegroundColor="White"
     TitleColor="White"
     Title="SGEducationNigeriaMobile">
     
@@ -26,9 +27,11 @@
         <ShellContent ContentTemplate="{DataTemplate user:DashboardPage}" /> 
     </FlyoutItem>
 
-    <FlyoutItem Title="Profile" Icon="user.png">
-        <ShellContent ContentTemplate="{DataTemplate user:ProfilePage}" />
-    </FlyoutItem>
+    <!-- <FlyoutItem Title="Profile" Icon="user.png"> -->
+    <!--     <ShellContent  ContentTemplate="{DataTemplate user:ProfilePage}" /> -->
+    <!-- </FlyoutItem> -->
+    
+    <!-- <MenuItem Text="Profile" IconImageSource="user.png" Clicked="OnProfileClicked"/> -->
 
     <!-- Logout -->
     <MenuItem Text="Logout" IconImageSource="logout.png" Clicked="OnLogoutClicked" />

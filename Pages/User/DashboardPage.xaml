@@ -8,23 +8,34 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
+
+  
             
-            <!-- <Label x:Name="LabelStudentName" -->
-            <!--        FontSize="18" -->
-            <!--        Margin="0, 20, 0, 0" -->
-            <!--        HorizontalOptions="Center" /> -->
-            
-            <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center" Margin="0, 20, 0, 0">
-                <Image Source="student_icon.png" WidthRequest="50" HeightRequest="50" Aspect="AspectFill">
+            <HorizontalStackLayout Spacing="10"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Margin="0, 20, 0, 0">
+
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileHeaderTapped" />
+                </HorizontalStackLayout.GestureRecognizers>
+
+                <Image Source="student_icon.png"
+                       WidthRequest="50"
+                       HeightRequest="50"
+                       Aspect="AspectFill">
                     <Image.Clip>
                         <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25" />
                     </Image.Clip>
                 </Image>
+
                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                     <Label Text="Hello, Future Scholar!" FontSize="14" TextColor="Red" />
                     <Label x:Name="LabelStudentName" FontSize="20" FontAttributes="Bold" TextColor="Black" />
                 </VerticalStackLayout>
+
             </HorizontalStackLayout>
+
 
             <!-- <Frame BackgroundColor="#512BD4" CornerRadius="15" HasShadow="True" BorderColor="Transparent"> -->
             <!--     <VerticalStackLayout Spacing="10"> -->
@@ -34,7 +45,7 @@
             <!--     </VerticalStackLayout> -->
             <!-- </Frame> -->
 
-            <Label Text="Application Hub" FontAttributes="Bold" FontSize="18" TextColor="Black" Margin="0, 30, 0, 0"/>
+            <Label Text="APPLICATION HUB:" FontAttributes="Bold" FontSize="18" TextColor="Black" Margin="0, 30, 0, 0"/>
             <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="15">
                 <!-- <Button x:Name="ButtonApplyForAdmission" Grid.Row="0" Grid.Column="0" Text="Apply for Admission" ImageSource="edit_icon.png"  -->
                 <!--         ContentLayout="Top,10" HeightRequest="120" BackgroundColor="White" TextColor="Black" CornerRadius="12"/> -->
@@ -43,33 +54,33 @@
 
                 <Border x:Name="ButtonApplyForAdmission" Grid.Row="0" Grid.Column="0"
                         StrokeShape="RoundRectangle 12"
-                        BackgroundColor="Gold"
+                        BackgroundColor="#471320"
                         HeightRequest="120">
-                    
+
                     <Border.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ButtonAppplyTapGestureRecognizer_OnTapped"/>
                     </Border.GestureRecognizers>
-                    
+
                     <VerticalStackLayout Spacing="8"
                                          HorizontalOptions="Center"
                                          VerticalOptions="Center">
-                        
+
                         <Image Source="edit_icon.png"
                                WidthRequest="50"
                                HeightRequest="50"/>
-                        
-                        <Label 
+
+                        <Label
                             x:Name="LabelApplyForAdmissionInfo"
                             Text="Apply for Admission"
                                FontSize="15"
-                               TextColor="Black"
+                               TextColor="White"
                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </Border>
-                
+
                 <Border x:Name="ButtonUploadDocuments" Grid.Row="0" Grid.Column="1"
                         StrokeShape="RoundRectangle 12"
-                        BackgroundColor="GreenYellow"
+                        BackgroundColor="#11589C"
                         HeightRequest="120">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="ButtonUploadDocumentsTapGestureRecognizer_OnTapped" />
@@ -83,14 +94,14 @@
                                WidthRequest="50"
                                HeightRequest="50" />
 
-                        <Label x:Name="LabelUploadDocsInfo" 
+                        <Label x:Name="LabelUploadDocsInfo"
                              Text="Upload Docs"
                              FontSize="15"
-                             TextColor="Black"
+                             TextColor="White"
                              HorizontalOptions="Center" />
+                        
                     </VerticalStackLayout>
                 </Border>
-
                 
             </Grid>
 
@@ -98,9 +109,67 @@
             <!--     <Label Text="AI Insights for You" FontAttributes="Bold" FontSize="18" /> -->
             <!--     <Button Text="View All" FontSize="12" TextColor="#512BD4" />  -->
             <!-- </FlexLayout> -->
+
+            <!-- <Label Text="EDU ARTICLES:" FontSize="18"  FontAttributes="Bold" TextColor="Black"/> <Label Text="EDU ARTICLES:" FontSize="18"  FontAttributes="Bold" TextColor="Black"/> -->
+
+            <!-- <VerticalStackLayout x:Name="LayoutAiArticles"> -->
+            <!--     <CollectionView x:Name="ArticleListView"> -->
+            <!--         <CollectionView.ItemTemplate> -->
+            <!--             <DataTemplate> -->
+            <!--                 <Label TextColor="Black" Text="{Binding Title}" /> -->
+            <!--             </DataTemplate> -->
+            <!--         </CollectionView.ItemTemplate> -->
+            <!--     </CollectionView> -->
+            <!-- </VerticalStackLayout> -->
+
             
-            <Label Text="Read our Edu Articles" FontSize="18"  FontAttributes="Bold" TextColor="Black"/>
+            <!-- ARTICLES SECTION -->
+            <Label Text="EDU ARTICLES:"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#1A1A1A"
+                   Margin="0,20,0,0" />
+
+            <CollectionView x:Name="ArticleListView"
+                            SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="15"
+                               Margin="0,0,0,15"
+                               BorderColor="#E0E0E0"
+                               CornerRadius="12"
+                               BackgroundColor="White"
+                               HasShadow="True">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <Label Text="{Binding Title}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="#1A1A1A" />
+
+                                <Label Text="{Binding CreatedAt, StringFormat='Published: {0:dd MMM yyyy}'}"
+                                       FontSize="13"
+                                       TextColor="#757575" />
+
+                                <Button Text="View Article"
+                                        BackgroundColor="LightSlateGray"
+                                        TextColor="White"
+                                        CornerRadius="8"
+                                        Padding="8"
+                                        Clicked="OnViewArticleClicked" />
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
             
+
+
             <!-- <FlexLayout Direction="Row" -->
             <!--             Wrap="Wrap" -->
             <!--             JustifyContent="Center" -->
@@ -130,5 +199,7 @@
             <!-- </CollectionView> -->
 
         </VerticalStackLayout>
+
+
     </ScrollView>
 </ContentPage>

@@ -98,12 +98,17 @@ public partial class LoginPage : ContentPage
 
     private async void OnForgotPasswordTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Forgot Password", "Reset link coming soon.", "OK");
+        // await DisplayAlert("Forgot Password", "Reset link coming soon.", "OK");
+        // await Shell.Current.GoToAsync("//ForgotPasswordPage");
+        var forgotPasswordPage = App.Current.Handler.MauiContext.Services
+            .GetService<ForgotPasswordPage>(); 
+
+        await Navigation.PushAsync(forgotPasswordPage);
     }
 
     private async void OnSignUpTapped(object sender, EventArgs e)
     {
-        await DisplayAlert("Sign Up", "Navigate to registration page.", "OK");
+        await Shell.Current.GoToAsync("RegisterPage");
     }
 
     private bool IsValidEmail(string email)

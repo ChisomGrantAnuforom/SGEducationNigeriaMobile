@@ -25,10 +25,10 @@ public partial class MainPage : ContentPage
        //  Console.WriteLine("RegisterPage Clicked");
        
        
-       var wizard = App.Current.Handler.MauiContext.Services
+       var registerPage = App.Current.Handler.MauiContext.Services
            .GetService<RegisterPage>(); 
 
-       await Navigation.PushAsync(wizard);
+       await Navigation.PushAsync(registerPage);
     }
 
     private async void OnLoginClicked(object? sender, EventArgs e)
