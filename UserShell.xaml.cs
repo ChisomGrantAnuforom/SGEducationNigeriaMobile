@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AndroidX.AppCompat.App;
+// using AndroidX.AppCompat.App;
 using SGEducationNigeriaMobile.Helpers;
 using SGEducationNigeriaMobile.Pages;
 using SGEducationNigeriaMobile.Pages.User;
