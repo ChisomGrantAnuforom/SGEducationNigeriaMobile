@@ -126,20 +126,27 @@ public class ApiService
     
     public async Task<bool> SendPasswordResetAsync(string email)
     {
-        var response = await _client.PostAsJsonAsync("/api/auth/forgot-password", new { Email = email });
+        var response = await _client.PostAsJsonAsync($"http://api.sgeducationnigerialtd.com/api/auth/forgot-password", new { Email = email });
         return response.IsSuccessStatusCode;
     }
 
     
     public async Task<bool> VerifyOtpAsync(string email, string otp)
     {
-        var response = await _client.PostAsJsonAsync("/api/auth/verify-otp", new { Email = email, Otp = otp });
+        var response = await _client.PostAsJsonAsync($"http://api.sgeducationnigerialtd.com/api/auth/verify-otp", new { Email = email, Otp = otp });
         return response.IsSuccessStatusCode;
     }
     
+    public async Task<bool> ResendOtpAsync(string email)
+    {
+        var response = await _client.PostAsJsonAsync($"http://api.sgeducationnigerialtd.com/api/auth/resend-otp", new { Email = email });
+        return response.IsSuccessStatusCode;
+    }
+
+    
     public async Task<bool> ResetPasswordAsync(string email, string newPassword)
     {
-        var response = await _client.PostAsJsonAsync("/api/auth/reset-password",
+        var response = await _client.PostAsJsonAsync($"http://api.sgeducationnigerialtd.com/api/auth/reset-password",
             new { Email = email, NewPassword = newPassword });
 
         return response.IsSuccessStatusCode;

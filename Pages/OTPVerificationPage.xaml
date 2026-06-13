@@ -6,25 +6,44 @@
              Title="Verify OTP"
              BackgroundColor="#F4F6F8">
 
-    <VerticalStackLayout Padding="24" Spacing="20">
+ 
+        <VerticalStackLayout Padding="24" Spacing="20">
 
-        <Label Text="Enter the 6‑digit code sent to your email"
-               FontSize="16"
-               TextColor="#374151" />
+            <Label Text="Enter the 6‑digit code sent to your email"
+                   FontSize="16"
+                   TextColor="#374151" />
 
-        <Entry x:Name="OtpEntry"
-               Placeholder="Enter OTP"
-               Keyboard="Numeric"
-               MaxLength="6"
-               HeightRequest="50"
-               BackgroundColor="#FFFFFF" />
+            <Entry x:Name="OtpEntry"
+                   Placeholder="Enter OTP"
+                   Keyboard="Numeric"
+                   MaxLength="6"
+                   HeightRequest="50"
+                   TextColor="Black"
+                   BackgroundColor="#FFFFFF" />
 
-        <Button Text="Verify OTP"
-                HeightRequest="50"
-                CornerRadius="12"
-                BackgroundColor="#4F46E5"
-                TextColor="White"
-                Clicked="OnVerifyOtpClicked" />
+            <Button Text="Verify OTP"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White"
+                    Clicked="OnVerifyOtpClicked" />
 
-    </VerticalStackLayout>
-</ContentPage>
+            <!-- Countdown Label -->
+            <Label x:Name="CountdownLabel"
+                   Text="Resend code in 30s"
+                   FontSize="14"
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center" />
+
+            <!-- Resend Button -->
+            <Button x:Name="ResendButton"
+                    Text="Resend OTP"
+                    HeightRequest="45"
+                    CornerRadius="10"
+                    BackgroundColor="#D1D5DB"
+                    TextColor="#6B7280"
+                    IsEnabled="False"
+                    Clicked="OnResendOtpClicked" />
+
+        </VerticalStackLayout>
+    </ContentPage>
