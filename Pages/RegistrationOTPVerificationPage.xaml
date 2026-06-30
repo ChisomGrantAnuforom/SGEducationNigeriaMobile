@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SGEducationNigeriaMobile.Pages.RegistrationOTPVerificationPage">
+    <ContentPage.Content>
+        
+        
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label Text="Enter the 6‑digit code sent to your email"
+                   FontSize="16"
+                   TextColor="#374151" />
+
+            <Entry x:Name="OtpEntry"
+                   Placeholder="Enter OTP"
+                   Keyboard="Numeric"
+                   MaxLength="6"
+                   HeightRequest="50"
+                   TextColor="Black"
+                   BackgroundColor="#FFFFFF" />
+
+            <Button Text="Verify OTP"
+                    HeightRequest="50"
+                    CornerRadius="12"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White"
+                    Clicked="OnVerifyOtpClicked" />
+
+            <!-- Countdown Label -->
+            <Label x:Name="CountdownLabel"
+                   Text="Resend code in 30s"
+                   FontSize="14"
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center" />
+
+            <!-- Resend Button -->
+            <Button x:Name="ResendButton"
+                    Text="Resend OTP"
+                    HeightRequest="45"
+                    CornerRadius="10"
+                    BackgroundColor="#D1D5DB"
+                    TextColor="#6B7280"
+                    IsEnabled="False"
+                    Clicked="OnResendOtpClicked" />
+
+        </VerticalStackLayout>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -35,35 +35,41 @@
                     <Entry x:Name="FirstNameEntry"
                            Placeholder="First Name"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <Entry x:Name="SurnameEntry"
                            Placeholder="Surname"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <Entry x:Name="EmailEntry"
                            Placeholder="Email"
                            Keyboard="Email"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <Entry x:Name="PhoneEntry"
                            Placeholder="Phone"
                            Keyboard="Telephone"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <Entry x:Name="PasswordEntry"
                            Placeholder="Password"
                            IsPassword="True"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <Entry x:Name="ConfirmPasswordEntry"
                            Placeholder="Confirm Password"
                            IsPassword="True"
                            HeightRequest="50"
+                           TextColor="Black"
                            BackgroundColor="#F9FAFB" />
 
                     <!-- Register Button -->

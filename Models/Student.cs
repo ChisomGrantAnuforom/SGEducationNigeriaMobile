@@ -9,8 +9,11 @@ public class Student
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
 
-    public int Age { get; set; }
+    public string password { get; set;}  
     
+    public string passwordHash { get; set;}
+        
+    public int Age { get; set; }
     
     public string Address { get; set; }
     public string DateOfBirth { get; set; }
@@ -50,4 +53,6 @@ public class Student
     public string DateApplied { get; set; }
     
     public bool OnboardingComplete { get; set; } = false;
+    
+    public bool AccountVerified { get; set; } = false;
 }

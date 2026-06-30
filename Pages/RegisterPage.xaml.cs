@@ -35,29 +35,31 @@ public partial class RegisterPage : ContentPage
             email = EmailEntry.Text,
             phoneNumber = PhoneEntry.Text,
             password = PasswordEntry.Text,
+            passwordHash = "",
 
             address = "",
             dateOfBirth = "",
             preferredAcademicIntake = "",
             marritalStatus = "",
-            happyToTravelFirst = false,
+            happyToTravelFirst = "",
             yearOfLastAcademicStudies = 0,
             qualificationObtained = "",
             programOfStudy = "",
             grades = "",
             yearOfCompletion = 0,
-            sponsor = 0,
+            sponsor = "0",
             availableDeposit = 0,
-            anyAgent = false,
-            canYouStopAgent = false,
-            anyVisaRefusal = false,
-            anyBan = false,
-            availabilityOfMaintenanceFunds = false,
-            readyToProceedNow = false,
+            anyAgent = "",
+            canYouStopAgent = "",
+            anyVisaRefusalOrBan = "",
+            availabilityOfMaintenanceFunds = "",
+            readyToProceedNow = "",
             totalArriveAbroadBudget = 0,
             areFundsAvailableNow = "",
             tryYourLuckWithChosenCountryOrNot = "",
-            dateApplied = DateTime.UtcNow.ToString("o")
+            dateApplied = DateTime.UtcNow.ToString("o"),
+            onboardingComplete = false,
+            accountVerified = false
         };
 
         var response = await _apiService.RegisterStudent(student);
@@ -73,12 +75,15 @@ public partial class RegisterPage : ContentPage
             SessionManager.Email = response.Email;
             SessionManager.PhoneNumber = response.PhoneNumber;
 
-            await DisplayAlert("Success", "Account created!", "OK");
+            await DisplayAlert("Success", "Account created! An email has been sent to you with a verification OTP. Please enter the OTP on the next page to verify your email.", "OK");
 
-            var wizard = App.Current.Handler.MauiContext.Services
-                .GetService<RegistrationWizardPage>();
-
-            await Navigation.PushAsync(wizard);
+            
+            await Navigation.PushAsync(new RegistrationOTPVerificationPage(_apiService, response.Email));
+            
+            // var wizard = App.Current.Handler.MauiContext.Services
+            //     .GetService<RegistrationWizardPage>();
+            //
+            // await Navigation.PushAsync(wizard);
             
             
             // await DisplayAlert("Success", "Account created! Please login.", "OK");

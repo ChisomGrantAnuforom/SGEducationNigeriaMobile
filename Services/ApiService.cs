@@ -122,7 +122,14 @@ public class ApiService
         return response != null && response.IsSuccessStatusCode;
     }
 
-
+    
+    public async Task<bool> VerifyStudentAccountOtpAsync(string email, string otp)
+    {
+        var response = await _client.PostAsJsonAsync($"http://api.sgeducationnigerialtd.com/api/students/verify-otp", new { Email = email, Otp = otp });
+        return response.IsSuccessStatusCode;
+    }
+    
+   
     
     public async Task<bool> SendPasswordResetAsync(string email)
     {

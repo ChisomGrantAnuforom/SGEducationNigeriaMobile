@@ -7,17 +7,15 @@ using SGEducationNigeriaMobile.Services;
 
 namespace SGEducationNigeriaMobile.Pages;
 
-
-public partial class OTPVerificationPage : ContentPage
+public partial class RegistrationOTPVerificationPage : ContentPage
 {
     private readonly ApiService _api;
     private readonly string _email;
     private int _countdown = 30;
     private bool _timerRunning = false;
 
-    public OTPVerificationPage(ApiService api, string email)
+    public RegistrationOTPVerificationPage(ApiService api, string email)
     {
-        
         
         InitializeComponent();
         _api = api;
@@ -36,13 +34,19 @@ public partial class OTPVerificationPage : ContentPage
             return;
         }
 
-        var result = await _api.VerifyOtpAsync(_email, otp);
+        var result = await _api.VerifyStudentAccountOtpAsync(_email, otp);
 
         if (result)
         {
-            await Navigation.PushAsync(new ResetPasswordPage(_api, _email));
+            //updating student record with verified status
+            
+            var wizard = App.Current.Handler.MauiContext.Services
+                .GetService<RegistrationWizardPage>();
+
+            await Navigation.PushAsync(wizard);
+            // await Navigation.PushAsync(new ResetPasswordPage(_api, _email));
         }
-        else
+        else  
         {
             await DisplayAlert("Error", "Invalid OTP. Try again.", "OK");
         }
@@ -95,4 +99,6 @@ public partial class OTPVerificationPage : ContentPage
             await DisplayAlert("Error", "Failed to resend OTP.", "OK");
         }
     }
+    
+    
 }
