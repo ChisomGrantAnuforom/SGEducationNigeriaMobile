@@ -71,9 +71,16 @@
                            HeightRequest="50"
                            TextColor="Black"
                            BackgroundColor="#F9FAFB" />
+                    
+                    <ActivityIndicator x:Name="RegisterLoader"
+                                       IsVisible="False"
+                                       IsRunning="False"
+                                       Color="#4F46E5"
+                                       HeightRequest="30" />
 
                     <!-- Register Button -->
                     <Button
+                        x:Name="RegisterButton"
                         Text="Create Account"
                         HeightRequest="50"
                         CornerRadius="12"

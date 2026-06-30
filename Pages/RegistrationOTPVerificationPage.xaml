@@ -10,7 +10,7 @@
 
             <Label Text="Enter the 6‑digit code sent to your email"
                    FontSize="16"
-                   TextColor="#374151" />
+                   TextColor="White" />
 
             <Entry x:Name="OtpEntry"
                    Placeholder="Enter OTP"
@@ -31,7 +31,7 @@
             <Label x:Name="CountdownLabel"
                    Text="Resend code in 30s"
                    FontSize="14"
-                   TextColor="#6B7280"
+                   TextColor="White"
                    HorizontalOptions="Center" />
 
             <!-- Resend Button -->
